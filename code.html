@@ -2409,6 +2409,191 @@
         height: 38px;
       }
     }
+
+    /* ========================================================
+       CROSS-SELLING SECTION: GRUPO VALENTINA / NUESTROS ESPACIOS
+       ======================================================== */
+    .cross-selling-section {
+      position: relative;
+      z-index: 10;
+      padding: 5rem 0 6rem;
+    }
+
+    .cross-showcase-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(12, 32, 20, 0.94) 0%, rgba(6, 18, 11, 0.98) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: grid;
+      grid-template-columns: 1fr;
+      margin: 0 auto;
+      max-width: 1050px;
+    }
+
+    @media (min-width: 900px) {
+      .cross-showcase-card {
+        grid-template-columns: 400px 1fr;
+      }
+    }
+
+    .cross-showcase-card:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 45px rgba(212, 175, 55, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .cross-img-column {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, rgba(30, 20, 10, 0.8) 0%, rgba(5, 12, 8, 0.95) 100%);
+    }
+
+    @media (min-width: 900px) {
+      .cross-img-column {
+        min-height: 100%;
+      }
+    }
+
+    .cross-poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cross-showcase-card:hover .cross-poster-img {
+      transform: scale(1.05);
+    }
+
+    .cross-badge-floating {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.25rem;
+      background: rgba(10, 25, 16, 0.92);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+
+    .cross-content-column {
+      padding: 2.25rem 1.75rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (min-width: 900px) {
+      .cross-content-column {
+        padding: 3.5rem 3rem;
+      }
+    }
+
+    .cross-group-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.6rem;
+    }
+
+    .cross-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 600px) {
+      .cross-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    .cross-title span {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .cross-desc {
+      color: #d1fae5;
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .cross-highlights-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+
+    .cross-highlight-pill {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .cross-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-cross-pops {
+      background: linear-gradient(135deg, #fff3c9 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      color: #061108;
+      font-weight: 800;
+      font-size: 0.98rem;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #ffffff;
+    }
+
+    .btn-cross-pops:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 35px rgba(212, 175, 55, 0.7);
+      filter: brightness(1.1);
+    }
   </style>
 </head>
 <body>
@@ -4703,6 +4888,62 @@
           </a>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CROSS-SELLING SECTION: GRUPO VALENTINA / NUESTROS ESPACIOS
+       ======================================================== -->
+  <section class="cross-selling-section" id="espacios-valentina" aria-label="Nuestros espacios en Requena">
+    <div class="container-custom">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="subheading-gold" style="display: inline-block; font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold-light); text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 0.25rem;">
+          Grupo Valentina
+        </span>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 700; color: #ffffff; text-shadow: 0 4px 20px rgba(0,0,0,0.9); margin-bottom: 0.75rem;">
+          Descubre Nuestros Espacios en Requena
+        </h2>
+        <div style="width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 1.25rem; border-radius: 2px;"></div>
+        <p style="color: #d1fae5; font-size: 1.05rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
+          Diferentes conceptos gastronómicos unidos por la misma pasión por el producto selecto, el mimo artesanal y una experiencia memorable en Requena.
+        </p>
+      </div>
+
+      <div class="cross-showcase-card">
+        <div class="cross-img-column">
+          <img src="images/pops-burger.jpg" alt="Pop's Burger Requena • Smash Burgers Gourmet" class="cross-poster-img" loading="lazy">
+          <div class="cross-badge-floating">🍔 Pop's Burger</div>
+        </div>
+
+        <div class="cross-content-column">
+          <div class="cross-group-tag">
+            <span>✨ Grupo Valentina • Requena</span>
+          </div>
+          <h3 class="cross-title">
+            Pop's <span>Burger Requena</span>
+          </h3>
+          <p class="cross-desc">
+            El templo de las auténticas <strong>smash burgers gourmet</strong> en Requena: carnes maduradas 100% vacuno con costra crujiente perfecta, pan brioche artesano de mantequilla dorada, patatas crujientes sazonadas y nuestras salsas secretas caseras.
+          </p>
+
+          <div class="cross-highlights-grid">
+            <span class="cross-highlight-pill">🔥 Smash 100% Vacuno</span>
+            <span class="cross-highlight-pill">🥖 Pan Brioche Artesanal</span>
+            <span class="cross-highlight-pill">🍟 Patatas & Entrantes</span>
+            <span class="cross-highlight-pill">🥤 Milkshakes & Postres</span>
+          </div>
+
+          <div class="cross-cta-row">
+            <a href="https://barpops.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-cross-pops" aria-label="Visitar la web de Pop's Burger Requena">
+              <span>Visítanos en Pop's Requena</span>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
