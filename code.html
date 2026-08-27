@@ -5123,7 +5123,7 @@
           zona: data.zone.toLowerCase().includes('terraza') ? 'terraza' : 'comedor',
           observaciones: data.notes || null,
           origen: 'web',
-          estado: 'confirmada'
+          estado: 'pendiente_verificacion'
         };
 
         fetch(SUPABASE_REST_URL, {
