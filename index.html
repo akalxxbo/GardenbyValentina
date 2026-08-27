@@ -5163,31 +5163,6 @@
           });
         }).catch(() => {});
 
-        // 4. Envío al restaurante y confirmación automática por email al cliente
-        fetch(RESTAURANT_EMAIL_ENDPOINT, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json', 
-            'Accept': 'application/json' 
-          },
-          body: JSON.stringify({
-            _subject: `🌿 Nueva Reserva en Garden: ${data.name} (${data.date} a las ${data.time})`,
-            _template: 'table',
-            _captcha: 'false',
-            _replyto: data.email || 'no-reply@gardenbyvalentina.es',
-            email: data.email || undefined,
-            _autoresponse: `¡Hola ${data.name}! 🌿\n\nHemos recibido correctamente tu solicitud de reserva en Garden by Valentina:\n\n📅 Fecha: ${data.date}\n⏰ Hora: ${data.time}\n👥 Comensales: ${data.guests} personas\n📍 Zona: ${data.zone}\n\n📍 Te esperamos en Plaza de España, 17, Requena.\n📞 Teléfono: 642 070 644\n\n¡Muchas gracias por elegirnos!`,
-            '👤 Nombre del Cliente': data.name,
-            '📞 Teléfono del Cliente': data.phone,
-            '✉️ Correo del Cliente': data.email || 'No indicado',
-            '📅 Fecha': data.date,
-            '⏰ Hora': data.time,
-            '👥 Personas': `${data.guests} personas`,
-            '🌿 Zona': data.zone,
-            '📝 Observaciones': data.notes || 'Ninguna'
-          })
-        }).catch(() => {});
-
       } catch (err) {
         console.log('Procesado:', err);
       }
@@ -5204,8 +5179,8 @@
         <p><strong>📞 Teléfono:</strong> ${data.phone}</p>
         ${data.email ? `<p><strong>✉️ Email:</strong> ${data.email}</p>` : ''}
         ${data.notes ? `<p><strong>📝 Notas:</strong> ${data.notes}</p>` : ''}
-        <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px dashed rgba(212, 175, 55, 0.4); font-size: 0.8rem; color: #a7f3d0;">
-          ✨ Tu mesa ha sido guardada en nuestro sistema de reservas.${data.email ? ' Te hemos enviado un comprobante a tu correo.' : ''}
+        <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px dashed rgba(212, 175, 55, 0.4); font-size: 0.88rem; color: #a7f3d0; line-height: 1.5;">
+          🌿 <strong>¡Solicitud recibida!</strong> En menos de 1 minuto te llamaremos para verificar los detalles de tu mesa.
         </div>
       `;
       successModal.classList.add('active');
