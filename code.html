@@ -5059,8 +5059,10 @@
     }
 
     // ========================================================
-    // RESERVATION FORM: GOOGLE SHEETS, N8N & EMAIL BACKUP
+    // RESERVATION FORM: SUPABASE (DB REAL), GOOGLE SHEETS & EMAIL
     // ========================================================
+    const SUPABASE_REST_URL = 'https://dniichajehfmijojcsez.supabase.co/rest/v1/reservas';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuaWljaGFqZWhmbWlqb2pjc2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NDA4ODQsImV4cCI6MjEwMzQxNjg4NH0.29S1Gr6k4g6xG8-VzLa1KxAKkFz8SMvBXk7s0E22roY';
     const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxqDrobDeMWN4NXFqkzYNg5FlQQnKxvDlPrOnX54Rlf7Qc80BCWPEVIUR4TbJZuHEo5/exec';
     const N8N_WEBHOOK_TEST = 'http://localhost:5678/webhook-test/reserva-garden';
     const N8N_WEBHOOK_PROD = 'http://localhost:5678/webhook/reserva-garden';
@@ -5101,14 +5103,41 @@
         email: data.email || 'No indicado',
         fecha: data.date,
         hora: data.time,
-        personas: parseInt(data.guests) || data.guests,
+        personas: parseInt(data.guests) || 2,
         zona: data.zone,
         observaciones: data.notes || 'Ninguna',
         fechaEnvio: new Date().toLocaleString('es-ES')
       };
 
       try {
-        // 1. Envío directo a tu Google Sheets
+        // 1. Guardar en Base de Datos Supabase (Seguro con RLS)
+        const supabaseBody = {
+          cliente_nombre: data.name,
+          cliente_telefono: data.phone,
+          fecha: data.date,
+          hora: data.time.length === 5 ? `${data.time}:00` : data.time,
+          personas: parseInt(data.guests) || 2,
+          zona: data.zone.toLowerCase().includes('terraza') ? 'terraza' : 'comedor',
+          origen: 'web',
+          estado: 'confirmada',
+          notas_alergias: `${data.email ? `Email: ${data.email}. ` : ''}${data.notes || ''}`.trim() || null
+        };
+
+        fetch(SUPABASE_REST_URL, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(supabaseBody)
+        }).then(res => {
+          if (res.ok) console.log('✅ Reserva guardada con éxito en Supabase');
+          else console.warn('Supabase status:', res.status);
+        }).catch(err => console.error('Error Supabase:', err));
+
+        // 2. Envío directo a Google Sheets (Backup)
         if (GOOGLE_SHEETS_ENDPOINT) {
           fetch(GOOGLE_SHEETS_ENDPOINT, {
             method: 'POST',
@@ -5118,7 +5147,7 @@
           }).catch(err => console.log('Sheets error:', err));
         }
 
-        // 2. Envío a n8n Webhook
+        // 3. Envío a n8n Webhook
         fetch(N8N_WEBHOOK_TEST, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -5131,7 +5160,7 @@
           });
         }).catch(() => {});
 
-        // 3. Envío al restaurante y confirmación automática por email al cliente
+        // 4. Envío al restaurante y confirmación automática por email al cliente
         fetch(RESTAURANT_EMAIL_ENDPOINT, {
           method: 'POST',
           headers: { 

@@ -1,6 +1,12 @@
+# Environment variables & API keys
+.env
+.env.local
+.env.*.local
+
 # Root downloaded duplicates (use videos/ folder instead)
 SnapInsta.to_*
 snaptik_*
 *.log
 .DS_Store
 Thumbs.db
+
