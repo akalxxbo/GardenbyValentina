@@ -5111,16 +5111,19 @@
 
       try {
         // 1. Guardar en Base de Datos Supabase (Seguro con RLS)
+        const hourNum = parseInt(data.time.split(':')[0]) || 14;
         const supabaseBody = {
-          cliente_nombre: data.name,
-          cliente_telefono: data.phone,
+          nombre: data.name,
+          telefono: data.phone,
+          email: data.email || null,
           fecha: data.date,
           hora: data.time.length === 5 ? `${data.time}:00` : data.time,
-          personas: parseInt(data.guests) || 2,
+          turno: hourNum >= 19 ? 'cena' : (hourNum < 12 ? 'desayuno' : 'comida'),
+          comensales: parseInt(data.guests) || 2,
           zona: data.zone.toLowerCase().includes('terraza') ? 'terraza' : 'comedor',
+          observaciones: data.notes || null,
           origen: 'web',
-          estado: 'confirmada',
-          notas_alergias: `${data.email ? `Email: ${data.email}. ` : ''}${data.notes || ''}`.trim() || null
+          estado: 'confirmada'
         };
 
         fetch(SUPABASE_REST_URL, {
