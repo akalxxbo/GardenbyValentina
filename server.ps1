@@ -1,99 +1,99 @@
-$port = 8080
-$listener = New-Object System.Net.HttpListener
-$listener.Prefixes.Add("http://localhost:$port/")
+$source = @"
+using System;
+using System.IO;
+using System.Net;
+using System.Threading;
 
-try {
-    $listener.Start()
-    Write-Host "Local server listening on http://localhost:$port/ (with HTTP 206 Partial Content Range support)"
-    while ($listener.IsListening) {
+public class FastServer {
+    private HttpListener _listener;
+    private string _root;
+    private bool _running;
+
+    public FastServer(int port, string root) {
+        _root = root;
+        _listener = new HttpListener();
+        _listener.Prefixes.Add("http://localhost:" + port + "/");
+    }
+
+    public void Start() {
+        _listener.Start();
+        _running = true;
+        _listener.BeginGetContext(OnRequest, null);
+    }
+
+    private void OnRequest(IAsyncResult ar) {
+        if (!_running) return;
         try {
-            $context = $listener.GetContext()
-            $request = $context.Request
-            $response = $context.Response
-            $localPath = $request.Url.LocalPath
-            if ($localPath -eq '/') { $localPath = '/index.html' }
-            $filePath = Join-Path $PSScriptRoot $localPath.TrimStart('/').Replace('/', '\')
-            
-            if (Test-Path $filePath -PathType Leaf) {
-                $file = [System.IO.File]::Open($filePath, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
-                $totalLength = $file.Length
-                $ext = [System.IO.Path]::GetExtension($filePath).ToLower()
-                $mime = switch ($ext) {
-                    '.html' { 'text/html; charset=utf-8' }
-                    '.css'  { 'text/css; charset=utf-8' }
-                    '.js'   { 'application/javascript; charset=utf-8' }
-                    '.png'  { 'image/png' }
-                    '.jpg'  { 'image/jpeg' }
-                    '.jpeg' { 'image/jpeg' }
-                    '.svg'  { 'image/svg+xml' }
-                    '.mp4'  { 'video/mp4' }
-                    '.webp' { 'image/webp' }
-                    default { 'application/octet-stream' }
-                }
-
-                $response.ContentType = $mime
-                $response.AddHeader("Accept-Ranges", "bytes")
-                $response.AddHeader("Access-Control-Allow-Origin", "*")
-
-                $rangeHeader = $request.Headers["Range"]
-                $start = 0
-                $end = $totalLength - 1
-                $isRange = $false
-
-                if ($rangeHeader -and $rangeHeader.StartsWith("bytes=")) {
-                    $rangeValue = $rangeHeader.Substring(6).Trim()
-                    $dashIdx = $rangeValue.IndexOf('-')
-                    if ($dashIdx -ge 0) {
-                        $startStr = $rangeValue.Substring(0, $dashIdx).Trim()
-                        $endStr = $rangeValue.Substring($dashIdx + 1).Trim()
-                        if ($startStr -ne '') { [int64]::TryParse($startStr, [ref]$start) | Out-Null }
-                        if ($endStr -ne '') { [int64]::TryParse($endStr, [ref]$end) | Out-Null }
-                        $isRange = $true
-                    }
-                }
-
-                if ($isRange) {
-                    if ($end -ge $totalLength) { $end = $totalLength - 1 }
-                    $contentLength = $end - $start + 1
-                    $response.StatusCode = 206
-                    $response.AddHeader("Content-Range", "bytes $start-$end/$totalLength")
-                    $response.ContentLength64 = $contentLength
-                    $file.Seek($start, [System.IO.SeekOrigin]::Begin) | Out-Null
-                    
-                    $buffer = New-Object byte[] 65536
-                    $remaining = $contentLength
-                    while ($remaining -gt 0) {
-                        $toRead = [int][Math]::Min(65536, $remaining)
-                        $bytesRead = $file.Read($buffer, 0, $toRead)
-                        if ($bytesRead -le 0) { break }
-                        $response.OutputStream.Write($buffer, 0, $bytesRead)
-                        $remaining -= $bytesRead
-                    }
-                } else {
-                    $response.StatusCode = 200
-                    $response.ContentLength64 = $totalLength
-                    $buffer = New-Object byte[] 65536
-                    while ($true) {
-                        $bytesRead = $file.Read($buffer, 0, 65536)
-                        if ($bytesRead -le 0) { break }
-                        $response.OutputStream.Write($buffer, 0, $bytesRead)
-                    }
-                }
-                $file.Close()
-            } else {
-                $response.StatusCode = 404
-                $msg = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found")
-                $response.OutputStream.Write($msg, 0, $msg.Length)
-            }
-            $response.OutputStream.Close()
+            var context = _listener.EndGetContext(ar);
+            _listener.BeginGetContext(OnRequest, null);
+            ThreadPool.QueueUserWorkItem(state => Process(context));
         } catch {
-            try {
-                if ($response -and $response.OutputStream) {
-                    $response.OutputStream.Close()
-                }
-            } catch {}
+            if (_running) {
+                try { _listener.BeginGetContext(OnRequest, null); } catch {}
+            }
         }
     }
+
+    private void Process(HttpListenerContext ctx) {
+        try {
+            var req = ctx.Request;
+            var res = ctx.Response;
+            string path = req.Url.LocalPath;
+            if (path == "/") path = "/index.html";
+            string fullPath = Path.Combine(_root, path.TrimStart('/').Replace('/', '\\'));
+
+            if (File.Exists(fullPath)) {
+                string ext = Path.GetExtension(fullPath).ToLower();
+                string mime = "application/octet-stream";
+                if (ext == ".html") mime = "text/html; charset=utf-8";
+                else if (ext == ".css") mime = "text/css; charset=utf-8";
+                else if (ext == ".js") mime = "application/javascript; charset=utf-8";
+                else if (ext == ".png") mime = "image/png";
+                else if (ext == ".jpg" || ext == ".jpeg") mime = "image/jpeg";
+                else if (ext == ".webp") mime = "image/webp";
+                else if (ext == ".svg") mime = "image/svg+xml";
+                else if (ext == ".mp4") mime = "video/mp4";
+
+                res.ContentType = mime;
+                res.AddHeader("Access-Control-Allow-Origin", "*");
+                res.AddHeader("Cache-Control", "no-cache");
+                
+                using (var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+                    res.ContentLength64 = fs.Length;
+                    res.StatusCode = 200;
+                    byte[] buffer = new byte[65536];
+                    int read;
+                    while ((read = fs.Read(buffer, 0, buffer.Length)) > 0) {
+                        res.OutputStream.Write(buffer, 0, read);
+                    }
+                }
+            } else {
+                res.StatusCode = 404;
+                byte[] notFound = System.Text.Encoding.UTF8.GetBytes("404 Not Found");
+                res.OutputStream.Write(notFound, 0, notFound.Length);
+            }
+            res.OutputStream.Close();
+        } catch {
+            try { ctx.Response.OutputStream.Close(); } catch {}
+        }
+    }
+
+    public void Stop() {
+        _running = false;
+        try { _listener.Stop(); } catch {}
+    }
+}
+"@
+
+Add-Type -TypeDefinition $source -Language CSharp
+$server = New-Object FastServer(8080, $PSScriptRoot)
+$server.Start()
+Write-Host "High-Performance Local Server running on http://localhost:8080/"
+
+try {
+    while ($true) {
+        Start-Sleep -Seconds 3600
+    }
 } finally {
-    $listener.Stop()
+    $server.Stop()
 }

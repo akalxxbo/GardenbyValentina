@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Garden by Valentina | Restaurante en Requena • Carta & Menú</title>
-  <meta name="description" content="Carta y Menú de Garden by Valentina en Plaza de España 17, Requena. Tapas caseras, ensaladas, carnes selectas a la brasa, pescados y postres artesanos.">
+  <meta name="description" content="Carta y Menú de Garden by Valentina en Plaza de España 17, Requena. Tapas caseras, ensaladas, carnes selectas, pescados y postres artesanos.">
   <meta name="theme-color" content="#1a3b25">
 
   <!-- Google Fonts: Dancing Script + Playfair Display + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Preload Cross-Selling Banner Images -->
+  <link rel="preload" as="image" href="images/pops-burger.jpg">
+  <link rel="preload" as="image" href="images/bar-el-camino.jpg">
 
   <style>
     :root {
@@ -2416,183 +2420,224 @@
     .cross-selling-section {
       position: relative;
       z-index: 10;
-      padding: 5rem 0 6rem;
+      padding: 4.5rem 0 5.5rem;
     }
 
-    .cross-showcase-card {
-      position: relative;
-      background: linear-gradient(135deg, rgba(12, 32, 20, 0.94) 0%, rgba(6, 18, 11, 0.98) 100%);
+    /* 1. Header Panel con fondo oscuro y blur */
+    .cross-header-panel {
+      background: var(--card-bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-gold);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
-      backdrop-filter: blur(20px);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: grid;
-      grid-template-columns: 1fr;
-      margin: 0 auto;
-      max-width: 1050px;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.5rem 2.4rem;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 2.5rem;
+      box-shadow: var(--shadow-luxury);
     }
 
-    @media (min-width: 900px) {
-      .cross-showcase-card {
-        grid-template-columns: 400px 1fr;
+    .cross-header-panel .subheading-gold {
+      display: inline-block;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.1rem;
+      color: var(--gold-light);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      margin-bottom: 0.2rem;
+    }
+
+    .cross-header-panel h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      margin-bottom: 0.6rem;
+      line-height: 1.25;
+    }
+
+    .cross-header-panel .divider-gold {
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      margin: 0 auto 0.9rem;
+      border-radius: 2px;
+    }
+
+    .cross-header-panel p {
+      color: #d1fae5;
+      font-size: 0.98rem;
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* 2. Grid de Tarjetas Verticales Proporcionales (Formato Cartel / Story 9:16) */
+    .cross-spaces-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .cross-spaces-grid {
+        gap: 0.65rem;
+      }
+      .cross-header-panel {
+        padding: 1.5rem 1rem 1.75rem;
+        margin-bottom: 1.25rem;
+      }
+      .cross-header-panel .subheading-gold {
+        font-size: 1.75rem;
       }
     }
 
-    .cross-showcase-card:hover {
-      border-color: var(--gold-primary);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 45px rgba(212, 175, 55, 0.25);
-      transform: translateY(-4px);
+    /* Tarjeta individual con proporción vertical exacta de la imagen (571x1024) */
+    .cross-space-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 571 / 1024;
+      border-radius: var(--radius-lg);
+      background: rgba(8, 22, 14, 0.92);
+      border: 1px solid var(--border-gold);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .cross-img-column {
-      position: relative;
-      min-height: 420px;
-      overflow: hidden;
+    .cross-space-card:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.35);
+      transform: translateY(-4px) scale(1.015);
+    }
+
+    /* Contenedor y visualización de la imagen completa de Pop's (100% relleno sin márgenes sobrantes) */
+    .cross-poster-wrapper {
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at center, rgba(30, 20, 10, 0.8) 0%, rgba(5, 12, 8, 0.95) 100%);
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
     }
 
-    @media (min-width: 900px) {
-      .cross-img-column {
-        min-height: 100%;
-      }
-    }
-
-    .cross-poster-img {
+    .cross-full-poster {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.5s ease;
     }
 
-    .cross-showcase-card:hover .cross-poster-img {
-      transform: scale(1.05);
+    .cross-space-card:hover .cross-full-poster {
+      transform: scale(1.03);
     }
 
-    .cross-badge-floating {
+    .cross-hover-glow {
       position: absolute;
-      top: 1.25rem;
-      left: 1.25rem;
-      background: rgba(10, 25, 16, 0.92);
-      border: 1px solid var(--gold-primary);
-      color: var(--gold-light);
-      padding: 0.35rem 0.85rem;
-      border-radius: var(--radius-full);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      z-index: 2;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.25);
+      opacity: 0;
+      transition: opacity 0.35s ease;
     }
 
-    .cross-content-column {
-      padding: 2.25rem 1.75rem 2.5rem;
+    .cross-space-card:hover .cross-hover-glow {
+      opacity: 1;
+    }
+
+    /* Tarjeta Reservada / Placeholder (Próximamente) */
+    .cross-card-placeholder {
+      border: 1px dashed rgba(212, 175, 55, 0.4);
+      background: rgba(8, 22, 14, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .cross-card-placeholder:hover {
+      border-color: rgba(212, 175, 55, 0.7);
+      background: rgba(10, 26, 16, 0.85);
+    }
+
+    .cross-placeholder-inner {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    @media (min-width: 900px) {
-      .cross-content-column {
-        padding: 3.5rem 3rem;
-      }
-    }
-
-    .cross-group-tag {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.82rem;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .cross-placeholder-badge {
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--gold-light);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 0.6rem;
-    }
-
-    .cross-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      color: #ffffff;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-
-    @media (max-width: 600px) {
-      .cross-title {
-        font-size: 1.75rem;
-      }
-    }
-
-    .cross-title span {
-      color: var(--gold-light);
-      font-style: italic;
-    }
-
-    .cross-desc {
-      color: #d1fae5;
-      font-size: 1rem;
-      line-height: 1.65;
-      margin-bottom: 1.5rem;
-    }
-
-    .cross-highlights-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-bottom: 2rem;
-    }
-
-    .cross-highlight-pill {
-      background: rgba(212, 175, 55, 0.12);
+      letter-spacing: 1px;
+      background: rgba(212, 175, 55, 0.15);
       border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+    }
+
+    .cross-placeholder-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+      margin: 0.25rem 0;
+    }
+
+    .cross-placeholder-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
       color: #ffffff;
+      font-weight: 700;
+    }
+
+    .cross-placeholder-desc {
       font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.4rem 0.85rem;
+      color: #d1fae5;
+      line-height: 1.45;
+      max-width: 220px;
+    }
+
+    .cross-placeholder-pill {
+      font-size: 0.72rem;
+      color: #a7f3d0;
+      border: 1px solid rgba(167, 243, 208, 0.25);
+      padding: 0.25rem 0.6rem;
       border-radius: var(--radius-full);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+      margin-top: 0.5rem;
     }
 
-    .cross-cta-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-cross-pops {
-      background: linear-gradient(135deg, #fff3c9 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-      color: #061108;
-      font-weight: 800;
-      font-size: 0.98rem;
-      padding: 0.9rem 2rem;
-      border-radius: var(--radius-full);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid #ffffff;
-    }
-
-    .btn-cross-pops:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 10px 35px rgba(212, 175, 55, 0.7);
-      filter: brightness(1.1);
+    @media (max-width: 640px) {
+      .cross-placeholder-icon {
+        font-size: 1.6rem;
+        margin: 0;
+      }
+      .cross-placeholder-title {
+        font-size: 1.05rem;
+      }
+      .cross-placeholder-desc {
+        font-size: 0.72rem;
+        max-width: 150px;
+      }
+      .cross-placeholder-badge, .cross-placeholder-pill {
+        font-size: 0.64rem;
+        padding: 0.2rem 0.45rem;
+      }
     }
   </style>
 </head>
@@ -3085,7 +3130,7 @@
         <span class="section-badge">Nuestra Filosofía</span>
         <h2 class="section-heading">Un Refugio de Naturaleza y Sabor</h2>
         <p class="section-subtext">
-          En Garden by Valentina cada rincón está diseñado para envolver tus sentidos. Paredes de vegetación viva, brasas al punto y la calidez de la gastronomía mediterránea.
+          En Garden by Valentina cada rincón está diseñado para envolver tus sentidos. Paredes de vegetación viva, cocina al punto y la calidez de la gastronomía mediterránea.
         </p>
       </div>
 
@@ -3104,15 +3149,15 @@
           </div>
         </div>
 
-        <!-- Bento 2: Producto de Proximidad y Brasa -->
+        <!-- Bento 2: Producto de Proximidad y Carnes Selectas -->
         <div class="bento-card bento-col-5">
           <div class="bento-bg-img" style="background-image: url('images/entrecot.jpg');"></div>
           <div class="bento-overlay"></div>
           <div class="bento-content">
-            <span class="bento-tag">Origen & Fuego</span>
+            <span class="bento-tag">Origen & Pasión</span>
             <h3 class="bento-title">Cortes Nobles & D.O. Requena</h3>
             <p class="bento-desc">
-              Chuletones madurados, entrecots y embutido de la tierra sellados al punto óptimo de fuego con guarniciones selectas.
+              Chuletones madurados, entrecots y embutido de la tierra sellados al punto óptimo con guarniciones selectas.
             </p>
           </div>
         </div>
@@ -3125,7 +3170,7 @@
             <span class="bento-tag">Mar & Tapeo</span>
             <h3 class="bento-title">Tapas & Esencia Marina</h3>
             <p class="bento-desc">
-              Pulpo a la gallega braseado, sepionet, tellinas frescas y tapas gourmet elaboradas al momento con el mejor producto de lonja.
+              Pulpo a la gallega al punto, sepionet, tellinas frescas y tapas gourmet elaboradas al momento con el mejor producto de lonja.
             </p>
           </div>
         </div>
@@ -3186,18 +3231,18 @@
           </div>
         </div>
 
-        <!-- Especialidad 2: Entrecot a la Brasa -->
+        <!-- Especialidad 2: Entrecot de Ternera Selecto -->
         <div class="featured-card">
           <div class="dish-img-wrap">
-            <img src="images/entrecot.jpg" alt="Entrecot a la Brasa" loading="lazy">
+            <img src="images/entrecot.jpg" alt="Entrecot de Ternera Selecto" loading="lazy">
           </div>
           <div class="dish-card-body">
             <div>
-              <h3 class="dish-card-title">Entrecot a la Brasa</h3>
-              <p class="dish-card-desc">Corte selecto de ternera a la brasa con sal en escamas, cesta de patatas fritas crujientes, verduras en tempura y pimientos de padrón.</p>
+              <h3 class="dish-card-title">Entrecot de Ternera Selecto</h3>
+              <p class="dish-card-desc">Corte noble de ternera al punto con sal en escamas, cesta de patatas fritas crujientes, verduras en tempura y pimientos de padrón.</p>
             </div>
             <div class="dish-card-footer">
-              <span class="badge-pill badge-gold">Brasa Selecta</span>
+              <span class="badge-pill badge-gold">Corte Selecto</span>
               <span class="price-tag">20,00 €</span>
             </div>
           </div>
@@ -3211,7 +3256,7 @@
           <div class="dish-card-body">
             <div>
               <h3 class="dish-card-title">Pulpo a la Gallega</h3>
-              <p class="dish-card-desc">Pata de pulpo braseada sobre cama de patatas panaderas pochadas con pimentón de la Vera, sal en escamas, AOVE y pimientos de padrón.</p>
+              <p class="dish-card-desc">Pata de pulpo dorada sobre cama de patatas panaderas pochadas con pimentón de la Vera, sal en escamas, AOVE y pimientos de padrón.</p>
             </div>
             <div class="dish-card-footer">
               <span class="badge-pill">Especialidad Mar</span>
@@ -3231,7 +3276,7 @@
     <div class="container-custom" style="max-width: 1100px; padding: 0 1rem; overflow-x: hidden;">
       
       <div class="section-header" style="margin-bottom: 2rem;">
-        <span class="section-badge">Gastronomía Mediterránea & Brasa</span>
+        <span class="section-badge">Gastronomía Mediterránea & Carnes Selectas</span>
         <h2 class="section-heading">Nuestra Carta</h2>
         <p class="section-subtext">
           Toca cada categoría para desplegar los platos, ingredientes y precios.
@@ -3634,7 +3679,7 @@
                       <span>Mici de Carne Especiada</span>
                       <span class="menu-badge badge-gold">Especialidad</span>
                     </div>
-                    <p class="menu-dish-desc">Rollitos de carne picada especiada a la brasa con mostaza.</p>
+                    <p class="menu-dish-desc">Rollitos tradicionales de carne picada especiada dorados al punto con mostaza.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">2,00 €</span>
@@ -3718,7 +3763,7 @@
             <div class="menu-acc-title-group">
               <div class="menu-acc-icon">🥩</div>
               <div class="menu-acc-texts">
-                <h3>Platos Principales: Brasa & Pescados</h3>
+                <h3>Platos Principales: Carnes Selectas & Pescados</h3>
                 <p>Chuletones madurados, entrecots nobles, carrilladas al vino y pescados frescos</p>
               </div>
             </div>
@@ -3732,8 +3777,8 @@
           <div class="menu-acc-body">
             <div class="menu-acc-inner">
 
-              <!-- Subsección: Carnes a la Brasa -->
-              <h4 class="menu-sub-heading">Carnes & Cortes Nobles a la Brasa</h4>
+              <!-- Subsección: Carnes y Cortes Nobles -->
+              <h4 class="menu-sub-heading">Carnes & Cortes Nobles al Punto</h4>
               <div class="menu-dishes-grid">
 
                 <div class="menu-dish-item">
@@ -3742,7 +3787,7 @@
                       <span>Chuletón de Vaca Madurada (500g)</span>
                       <span class="menu-badge badge-star">⭐ Premium</span>
                     </div>
-                    <p class="menu-dish-desc">Vacuno madurado sellado a la brasa con sal marina en escamas y pimientos de Padrón.</p>
+                    <p class="menu-dish-desc">Vacuno madurado sellado al punto con sal marina en escamas y pimientos de Padrón.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">23,00 €</span>
@@ -3752,10 +3797,10 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Entrecot de Ternera a la Brasa</span>
+                      <span>Entrecot de Ternera Selecto</span>
                       <span class="menu-badge badge-star">⭐ Recomendado</span>
                     </div>
-                    <p class="menu-dish-desc">Corte noble de ternera a la parrilla servido al punto con patatas y guarnición de verduras.</p>
+                    <p class="menu-dish-desc">Corte noble de ternera sellado al punto con patatas y guarnición de verduras.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">20,00 €</span>
@@ -3840,10 +3885,10 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Embutido de Requena a la Brasa</span>
+                      <span>Embutido Tradicional de Requena</span>
                       <span class="menu-badge badge-do">D.O. Requena</span>
                     </div>
-                    <p class="menu-dish-desc">Longanizas, morcillas y chorizos artesanos de Requena a la parrilla.</p>
+                    <p class="menu-dish-desc">Longanizas, morcillas y chorizos artesanos de Requena dorados al punto.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">12,00 €</span>
@@ -3853,9 +3898,9 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Pechuga de Pollo a la Parrilla</span>
+                      <span>Pechuga de Pollo Dorada</span>
                     </div>
-                    <p class="menu-dish-desc">A la parrilla con patatas fritas naturales y ensalada fresca.</p>
+                    <p class="menu-dish-desc">Cocinada al punto con patatas fritas naturales y ensalada fresca.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">10,00 €</span>
@@ -3888,7 +3933,7 @@
                       <span>Solomillo de Atún Noble</span>
                       <span class="menu-badge badge-gold">Noble</span>
                     </div>
-                    <p class="menu-dish-desc">Corte grueso de atún marcado al punto en parrilla con guarnición vegetal.</p>
+                    <p class="menu-dish-desc">Corte grueso de atún marcado al punto con guarnición vegetal.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">16,00 €</span>
@@ -4354,11 +4399,11 @@
           </div>
         </div>
 
-        <!-- Tile 6: Entrecot a la Brasa (Wide) -->
-        <div class="gallery-tile tile-wide" onclick="openLightbox('images/entrecot.jpg', 'Entrecot a la Brasa')">
-          <img src="images/entrecot.jpg" alt="Entrecot a la Brasa" loading="lazy">
+        <!-- Tile 6: Entrecot de Ternera Selecto (Wide) -->
+        <div class="gallery-tile tile-wide" onclick="openLightbox('images/entrecot.jpg', 'Entrecot de Ternera Selecto')">
+          <img src="images/entrecot.jpg" alt="Entrecot de Ternera Selecto" loading="lazy">
           <div class="gallery-tile-overlay">
-            <span class="gallery-tile-title">Cortes a la Brasa</span>
+            <span class="gallery-tile-title">Carnes & Cortes Nobles</span>
           </div>
         </div>
 
@@ -4703,11 +4748,6 @@
                   <option value="15:00">15:00</option>
                   <option value="15:30">15:30</option>
                 </optgroup>
-                <optgroup label="Merienda / Café">
-                  <option value="17:00">17:00</option>
-                  <option value="18:00">18:00</option>
-                  <option value="19:00">19:00</option>
-                </optgroup>
                 <optgroup label="Cena">
                   <option value="20:00">20:00</option>
                   <option value="20:30">20:30</option>
@@ -4733,7 +4773,19 @@
                 <option value="5">5 Personas</option>
                 <option value="6">6 Personas</option>
                 <option value="7">7 Personas</option>
-                <option value="8">8+ Personas (Grupo)</option>
+                <option value="8">8 Personas</option>
+                <option value="9">9 Personas</option>
+                <option value="10">10 Personas (Grupo)</option>
+                <option value="11">11 Personas (Grupo)</option>
+                <option value="12">12 Personas (Grupo)</option>
+                <option value="13">13 Personas (Grupo)</option>
+                <option value="14">14 Personas (Grupo)</option>
+                <option value="15">15 Personas (Grupo)</option>
+                <option value="16">16 Personas (Grupo)</option>
+                <option value="17">17 Personas (Grupo)</option>
+                <option value="18">18 Personas (Grupo)</option>
+                <option value="19">19 Personas (Grupo)</option>
+                <option value="20">20 Personas (Gran Grupo)</option>
               </select>
             </div>
 
@@ -4897,54 +4949,38 @@
        ======================================================== -->
   <section class="cross-selling-section" id="espacios-valentina" aria-label="Nuestros espacios en Requena">
     <div class="container-custom">
-      <div style="text-align: center; margin-bottom: 3rem;">
-        <span class="subheading-gold" style="display: inline-block; font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold-light); text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 0.25rem;">
-          Grupo Valentina
-        </span>
-        <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 700; color: #ffffff; text-shadow: 0 4px 20px rgba(0,0,0,0.9); margin-bottom: 0.75rem;">
-          Descubre Nuestros Espacios en Requena
-        </h2>
-        <div style="width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 1.25rem; border-radius: 2px;"></div>
-        <p style="color: #d1fae5; font-size: 1.05rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
-          Diferentes conceptos gastronómicos unidos por la misma pasión por el producto selecto, el mimo artesanal y una experiencia memorable en Requena.
+      
+      <!-- 1. Panel de Título con fondo oscuro y blur -->
+      <div class="cross-header-panel">
+        <span class="subheading-gold">Grupo Valentina</span>
+        <h2>Descubre Nuestros Espacios en Requena</h2>
+        <div class="divider-gold"></div>
+        <p>
+          Distintas experiencias gastronómicas con la misma pasión, mimo artesanal y calidad inigualable.
         </p>
       </div>
 
-      <div class="cross-showcase-card">
-        <div class="cross-img-column">
-          <img src="images/pops-burger.jpg" alt="Pop's Burger Requena • Smash Burgers Gourmet" class="cross-poster-img" loading="lazy">
-          <div class="cross-badge-floating">🍔 Pop's Burger</div>
-        </div>
-
-        <div class="cross-content-column">
-          <div class="cross-group-tag">
-            <span>✨ Grupo Valentina • Requena</span>
+      <!-- 2. Grid de tarjetas verticales proporcionales (Formato Cartel / Story 9:16) -->
+      <div class="cross-spaces-grid">
+        
+        <!-- Mitad Izquierda: Pop's Burger (Cartel vertical completo sin cortes) -->
+        <a href="https://barpops.netlify.app/" target="_blank" rel="noopener noreferrer" class="cross-space-card cross-card-pops" aria-label="Visitar Pop's Burger Requena">
+          <div class="cross-poster-wrapper">
+            <img src="images/pops-burger.jpg" alt="Pop's Burger Requena • Visítanos en Pop's Requena" class="cross-full-poster" loading="eager" decoding="async" fetchpriority="high">
           </div>
-          <h3 class="cross-title">
-            Pop's <span>Burger Requena</span>
-          </h3>
-          <p class="cross-desc">
-            El templo de las auténticas <strong>smash burgers gourmet</strong> en Requena: carnes maduradas 100% vacuno con costra crujiente perfecta, pan brioche artesano de mantequilla dorada, patatas crujientes sazonadas y nuestras salsas secretas caseras.
-          </p>
+          <div class="cross-hover-glow"></div>
+        </a>
 
-          <div class="cross-highlights-grid">
-            <span class="cross-highlight-pill">🔥 Smash 100% Vacuno</span>
-            <span class="cross-highlight-pill">🥖 Pan Brioche Artesanal</span>
-            <span class="cross-highlight-pill">🍟 Patatas & Entrantes</span>
-            <span class="cross-highlight-pill">🥤 Milkshakes & Postres</span>
+        <!-- Mitad Derecha: Bar El Camino Rte (Enlace directo a Google Maps / Negocio) -->
+        <a href="https://share.google/GKmX0HW6ddUAB88Gq" target="_blank" rel="noopener noreferrer" class="cross-space-card cross-card-camino" aria-label="Visitar Bar El Camino Rte en Google">
+          <div class="cross-poster-wrapper">
+            <img src="images/bar-el-camino.jpg" alt="Bar El Camino Rte • Requena" class="cross-full-poster" loading="eager" decoding="async" fetchpriority="high">
           </div>
+          <div class="cross-hover-glow"></div>
+        </a>
 
-          <div class="cross-cta-row">
-            <a href="https://barpops.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-cross-pops" aria-label="Visitar la web de Pop's Burger Requena">
-              <span>Visítanos en Pop's Requena</span>
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
-          </div>
-        </div>
       </div>
+
     </div>
   </section>
 
