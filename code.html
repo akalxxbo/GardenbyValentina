@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Garden by Valentina | Restaurante en Requena • Carta & Menú</title>
   <meta name="description" content="Carta y Menú de Garden by Valentina en Plaza de España 17, Requena. Tapas caseras, ensaladas, carnes selectas, pescados y postres artesanos.">
   <meta name="theme-color" content="#1a3b25">
@@ -55,15 +55,37 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      overflow-x: clip;
+      max-width: 100%;
+      width: 100%;
+      overscroll-behavior-x: none;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      overflow-x: clip;
       color: var(--text-main);
       background-color: #081a0f;
       position: relative;
+      max-width: 100%;
+      width: 100%;
+      overscroll-behavior-x: none;
+      touch-action: pan-y;
+    }
+
+    /* Strict container & section overflow lockdown to prevent sideways drift */
+    section,
+    header,
+    footer,
+    main,
+    .hero-scroll-container,
+    .hero-sticky-viewport,
+    .cross-selling-section {
+      max-width: 100%;
+      overflow-x: clip;
     }
 
     /* ========================================================
@@ -72,8 +94,9 @@
     .living-garden-canvas {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
@@ -170,8 +193,8 @@
     }
 
     .floral-progress-svg-track {
-      width: 100vw;
-      min-width: 100vw;
+      width: 100%;
+      min-width: 100%;
       height: 100%;
       display: block;
     }
@@ -295,6 +318,8 @@
       top: 0;
       left: 0;
       width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
       z-index: 1200;
       padding: 0.95rem 1.25rem 0.5rem;
       background: rgba(6, 18, 10, 0.96);
@@ -1598,6 +1623,34 @@
       color: #d1fae5;
       margin-top: 0.4rem;
       line-height: 1.5;
+    }
+
+    .menu-cake-varieties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.75rem;
+    }
+
+    .cake-variety-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: #fbe5aa;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.28rem 0.65rem;
+      border-radius: var(--radius-full);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .cake-variety-pill:hover {
+      background: rgba(212, 175, 55, 0.22);
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-1px);
     }
 
     .menu-cake-video-wrap {
@@ -3289,22 +3342,27 @@
           <button type="button" class="menu-cat-tab active" data-category="all" aria-selected="true">
             <span class="tab-icon">✨</span>
             <span>Ver Todos</span>
-            <span class="tab-count">49</span>
+            <span class="tab-count">85</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="entrantes" aria-selected="false">
             <span class="tab-icon">🥘</span>
             <span>Entrantes & Tapas</span>
-            <span class="tab-count">31</span>
+            <span class="tab-count">33</span>
+          </button>
+          <button type="button" class="menu-cat-tab" data-category="ensaladas" aria-selected="false">
+            <span class="tab-icon">🥗</span>
+            <span>Ensaladas</span>
+            <span class="tab-count">7</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="principales" aria-selected="false">
             <span class="tab-icon">🥩</span>
             <span>Platos Principales</span>
-            <span class="tab-count">15</span>
+            <span class="tab-count">17</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="postres" aria-selected="false">
             <span class="tab-icon">🍰</span>
             <span>Postres Artesanales</span>
-            <span class="tab-count">9</span>
+            <span class="tab-count">16</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="bebidas" aria-selected="false">
             <span class="tab-icon">🍷</span>
@@ -3320,8 +3378,8 @@
         <!-- ==========================================
              ACORDEÓN 1: ENTRANTES & TAPAS
              ========================================== -->
-        <div class="menu-acc-item active" id="acc-entrantes">
-          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-entrantes')" role="button" aria-expanded="true">
+        <div class="menu-acc-item" id="acc-entrantes">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-entrantes')" role="button" aria-expanded="false">
             <div class="menu-acc-bg-photo" style="background-image: url('images/tapas-ambiente.jpg');"></div>
             <div class="menu-acc-overlay"></div>
             
@@ -3329,12 +3387,12 @@
               <div class="menu-acc-icon">🥘</div>
               <div class="menu-acc-texts">
                 <h3>Entrantes & Tapas de la Casa</h3>
-                <p>Tapas clásicas, patatas gourmet, sartenillas y ensaladas de la huerta</p>
+                <p>Tapas clásicas, patatas gourmet, sartenillas y raciones al momento</p>
               </div>
             </div>
 
             <div class="menu-acc-actions">
-              <span class="menu-acc-badge">31 Platos</span>
+              <span class="menu-acc-badge">33 Tapas</span>
               <div class="menu-acc-chevron">▼</div>
             </div>
           </div>
@@ -3356,7 +3414,7 @@
                     <p class="menu-dish-desc">Patatas crujientes por fuera y tiernas por dentro, con salsa brava casera artesanal.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">6,50 €</span>
+                    <span class="menu-dish-price">7,00 €</span>
                   </div>
                 </div>
 
@@ -3368,7 +3426,7 @@
                     <p class="menu-dish-desc">Queso fundido gratinado y salsa bacon artesanal.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
@@ -3381,7 +3439,7 @@
                     <p class="menu-dish-desc">Mayonesa trufada, lluvia de polvo de albahaca fresca y queso parmesano.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
@@ -3394,7 +3452,7 @@
                     <p class="menu-dish-desc">Carne desmechada de cerdo a baja temperatura, queso fundido, cebolla crujiente y salsa bacon.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
@@ -3407,7 +3465,7 @@
                     <p class="menu-dish-desc">Patatas panaderas con huevos de corral camperos y jamón curado.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
@@ -3420,7 +3478,7 @@
                     <p class="menu-dish-desc">Patatas salteadas al momento con embutido artesanal de carnicería de Requena.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
@@ -3433,7 +3491,7 @@
                     <p class="menu-dish-desc">Estofado pacientemente a fuego lento con verduras y reducción de vino tinto.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">14,00 €</span>
+                    <span class="menu-dish-price">15,00 €</span>
                   </div>
                 </div>
 
@@ -3446,19 +3504,19 @@
                     <p class="menu-dish-desc">Surtido artesano de boletus silvestres, jamón ibérico y pollo campero.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">7,00 €</span>
+                    <span class="menu-dish-price">9,50 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Torreznos Crujientes</span>
+                      <span>Torrezno Crujiente</span>
                     </div>
                     <p class="menu-dish-desc">Corteza dorada extra crujiente y magro tierno y jugoso.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,00 €</span>
+                    <span class="menu-dish-price">9,50 €</span>
                   </div>
                 </div>
 
@@ -3471,7 +3529,7 @@
                     <p class="menu-dish-desc">Tellinas del Mediterráneo abiertas a la plancha con ajo, perejil y AOVE.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">10,00 €</span>
+                    <span class="menu-dish-price">13,00 €</span>
                   </div>
                 </div>
 
@@ -3483,7 +3541,7 @@
                     <p class="menu-dish-desc">En cazuela con aceite de oliva virgen extra, ajo dorado y toque de guindilla.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,50 €</span>
                   </div>
                 </div>
 
@@ -3496,7 +3554,7 @@
                     <p class="menu-dish-desc">A la plancha con salsa mery artesanal y toque cítrico.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">12,00 €</span>
+                    <span class="menu-dish-price">13,00 €</span>
                   </div>
                 </div>
 
@@ -3508,7 +3566,7 @@
                     <p class="menu-dish-desc">Chipirones tiernos marcados a fuego vivo con sal en escamas y AOVE.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,50 €</span>
+                    <span class="menu-dish-price">11,00 €</span>
                   </div>
                 </div>
 
@@ -3520,7 +3578,7 @@
                     <p class="menu-dish-desc">Calamares tiernos con aliño aromático de hierbas mediterráneas.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">11,00 €</span>
                   </div>
                 </div>
 
@@ -3532,7 +3590,7 @@
                     <p class="menu-dish-desc">Puntilla fina con fritura ligera andaluza y gajos de limón.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">11,00 €</span>
                   </div>
                 </div>
 
@@ -3545,7 +3603,7 @@
                     <p class="menu-dish-desc">Pata tierna sobre cama de patata pochada, pimentón de la Vera y flor de sal.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">18,00 €</span>
+                    <span class="menu-dish-price">20,00 €</span>
                   </div>
                 </div>
 
@@ -3557,19 +3615,19 @@
                     <p class="menu-dish-desc">Ajos tiernos, espárragos verdes, setas silvestres y gambas salteadas.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,50 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Pollo Crujiente + Salsa Picante</span>
+                      <span>Pollo Crujiente</span>
                     </div>
-                    <p class="menu-dish-desc">Tiras doradas y crujientes con dip picante casero.</p>
+                    <p class="menu-dish-desc">Tiras doradas y crujientes con dip casero.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,00 €</span>
+                    <span class="menu-dish-price">9,00 €</span>
                   </div>
                 </div>
 
@@ -3581,7 +3639,7 @@
                     <p class="menu-dish-desc">Glaseadas con barbacoa ahumada, miel y ligero toque picante.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,00 €</span>
+                    <span class="menu-dish-price">9,00 €</span>
                   </div>
                 </div>
 
@@ -3593,33 +3651,33 @@
                     <p class="menu-dish-desc">Langostinos envueltos en pasta brick crujiente con salsa agridulce.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">9,00 €</span>
+                    <span class="menu-dish-price">10,50 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Saquito de Queso de Cabra</span>
+                      <span>Saquitos de Queso de Cabra y Verdura</span>
                       <span class="menu-badge badge-veg">🌿 Vegetariano</span>
                     </div>
                     <p class="menu-dish-desc">Hojaldre fino relleno de rulo de cabra y verduras pochadas.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">7,00 €</span>
+                    <span class="menu-dish-price">9,50 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Queso Frito Artesano</span>
+                      <span>Queso Frito</span>
                       <span class="menu-badge badge-veg">🌿 Vegetariano</span>
                     </div>
                     <p class="menu-dish-desc">Con mermelada casera de tomate o frutos del bosque.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">7,00 €</span>
+                    <span class="menu-dish-price">8,50 €</span>
                   </div>
                 </div>
 
@@ -3632,7 +3690,7 @@
                     <p class="menu-dish-desc">Jamón curado selecto con tostas de pan de pueblo y tomate rallado.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">12,00 €</span>
+                    <span class="menu-dish-price">13,50 €</span>
                   </div>
                 </div>
 
@@ -3645,74 +3703,16 @@
                     <p class="menu-dish-desc">Surtido selecto de quesos curados y semicurados con frutos secos.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">7,00 €</span>
+                    <span class="menu-dish-price">9,50 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Morro Frito Tradicional</span>
+                      <span>Morro Frito</span>
                     </div>
                     <p class="menu-dish-desc">Morro crujiente y sabroso al estilo clásico de Requena.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Oreja a la Plancha</span>
-                    </div>
-                    <p class="menu-dish-desc">Oreja adobada crujiente con aderezo de ajo, perejil y pimentón.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">8,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Mici de Carne Especiada</span>
-                      <span class="menu-badge badge-gold">Especialidad</span>
-                    </div>
-                    <p class="menu-dish-desc">Rollitos tradicionales de carne picada especiada dorados al punto con mostaza.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">2,00 €</span>
-                    <span class="menu-dish-price-unit">/ unidad</span>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Subsección: Ensaladas Frescas -->
-              <h4 class="menu-sub-heading">Ensaladas Frescas de la Huerta</h4>
-              <div class="menu-dishes-grid">
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Ensalada Garden</span>
-                      <span class="menu-badge badge-star">⭐ Estrella</span>
-                      <span class="menu-badge badge-gold">Recomendado</span>
-                    </div>
-                    <p class="menu-dish-desc">Brotes tiernos, aguacate, frutos secos, tomate cherry, rulo de cabra y crujiente de jamón.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">12,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Ensalada Valenciana</span>
-                    </div>
-                    <p class="menu-dish-desc">Lechuga fresca, tomate, pepino, maíz, cebolla, remolacha, zanahoria, olivas y lomos de atún claro.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">9,00 €</span>
@@ -3722,11 +3722,49 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Ensalada Burrata con Pesto</span>
-                      <span class="menu-badge badge-gold">Gourmet</span>
-                      <span class="menu-badge badge-veg">🌿 Vegetariano</span>
+                      <span>Oreja</span>
                     </div>
-                    <p class="menu-dish-desc">Tomate maduro en rodajas, burrata cremosa fresca 100%, pesto verde artesanal y albahaca fresca.</p>
+                    <p class="menu-dish-desc">Oreja adobada crujiente con aderezo de ajo, perejil y pimentón.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">9,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Mici</span>
+                      <span class="menu-badge badge-gold">Especialidad</span>
+                    </div>
+                    <p class="menu-dish-desc">Rollitos tradicionales de carne picada especiada dorados al punto con mostaza.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">2,50 €</span>
+                    <span class="menu-dish-price-unit">/ unidad</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Cazón en Adobo</span>
+                      <span class="menu-badge badge-gold">Andaluz</span>
+                    </div>
+                    <p class="menu-dish-desc">Tacos de cazón marinados en adobo tradicional con orégano y pimentón, fritos crujientes en AOVE.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">14,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Zarajos</span>
+                      <span class="menu-badge badge-gold">Tradicional</span>
+                    </div>
+                    <p class="menu-dish-desc">Madeja tradicional en sarmiento dorada a la plancha con limón y ajo picado.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">10,00 €</span>
@@ -3736,13 +3774,53 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Ensalada de Sardina Anchoada</span>
-                      <span class="menu-badge badge-fresh">Deluxe</span>
+                      <span>Fritura de Pescado</span>
+                      <span class="menu-badge badge-fresh">Especial Mar</span>
                     </div>
-                    <p class="menu-dish-desc">Mezclum fresco, tomate de huerta, dados de queso fresco y sardinas anchoadas artesanas.</p>
+                    <p class="menu-dish-desc">Surtido generoso de pescado variado y marisco frito al punto andaluz con gajos de limón.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">11,00 €</span>
+                    <span class="menu-dish-price">25,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Almejas</span>
+                      <span class="menu-badge badge-fresh">Del Mar</span>
+                    </div>
+                    <p class="menu-dish-desc">Almejas frescas salteadas al vino blanco con ajo picado, perejil y AOVE.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">12,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Rabo de Cerdo</span>
+                      <span class="menu-badge badge-gold">Casero</span>
+                    </div>
+                    <p class="menu-dish-desc">Cocinada a fuego lento y dorada al punto crujiente por fuera y tierna por dentro.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">10,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Sarmale</span>
+                      <span class="menu-badge badge-gold">Especialidad</span>
+                    </div>
+                    <p class="menu-dish-desc">Rollitos tradicionales de col rellenos de carne especiada y arroz a fuego lento.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">10,00 €</span>
+                    <span class="menu-dish-price-unit">ración • 2,00 € / ud.</span>
                   </div>
                 </div>
 
@@ -3753,23 +3831,23 @@
         </div>
 
         <!-- ==========================================
-             ACORDEÓN 2: PLATOS PRINCIPALES
+             ACORDEÓN 2: ENSALADAS & TARTAR
              ========================================== -->
-        <div class="menu-acc-item" id="acc-principales">
-          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-principales')" role="button" aria-expanded="false">
-            <div class="menu-acc-bg-photo" style="background-image: url('images/entrecot.jpg');"></div>
+        <div class="menu-acc-item" id="acc-ensaladas">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-ensaladas')" role="button" aria-expanded="false">
+            <div class="menu-acc-bg-photo" style="background-image: url('images/ensalada.jpg');"></div>
             <div class="menu-acc-overlay"></div>
             
             <div class="menu-acc-title-group">
-              <div class="menu-acc-icon">🥩</div>
+              <div class="menu-acc-icon">🥗</div>
               <div class="menu-acc-texts">
-                <h3>Platos Principales: Carnes Selectas & Pescados</h3>
-                <p>Chuletones madurados, entrecots nobles, carrilladas al vino y pescados frescos</p>
+                <h3>Ensaladas Frescas & Tartar</h3>
+                <p>Ensaladas botánicas de la huerta, burrata cremosa, contrastes frescos y tartar de atún</p>
               </div>
             </div>
 
             <div class="menu-acc-actions">
-              <span class="menu-acc-badge">15 Platos</span>
+              <span class="menu-acc-badge">7 Opciones</span>
               <div class="menu-acc-chevron">▼</div>
             </div>
           </div>
@@ -3777,118 +3855,44 @@
           <div class="menu-acc-body">
             <div class="menu-acc-inner">
 
-              <!-- Subsección: Carnes y Cortes Nobles -->
-              <h4 class="menu-sub-heading">Carnes & Cortes Nobles al Punto</h4>
+              <h4 class="menu-sub-heading">Ensaladas Frescas & Tartar de la Huerta</h4>
               <div class="menu-dishes-grid">
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Chuletón de Vaca Madurada (500g)</span>
-                      <span class="menu-badge badge-star">⭐ Premium</span>
+                      <span>Ensalada Garden</span>
+                      <span class="menu-badge badge-star">⭐ Estrella</span>
+                      <span class="menu-badge badge-gold">Casa</span>
                     </div>
-                    <p class="menu-dish-desc">Vacuno madurado sellado al punto con sal marina en escamas y pimientos de Padrón.</p>
+                    <p class="menu-dish-desc">Variado de lechuga, aguacate, frutos secos, tomate cherry, queso de cabra y jamón crujiente.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">23,00 €</span>
+                    <span class="menu-dish-price">14,00 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Entrecot de Ternera Selecto</span>
-                      <span class="menu-badge badge-star">⭐ Recomendado</span>
+                      <span>Ensalada Valenciana</span>
+                      <span class="menu-badge badge-gold">Clásica</span>
                     </div>
-                    <p class="menu-dish-desc">Corte noble de ternera sellado al punto con patatas y guarnición de verduras.</p>
+                    <p class="menu-dish-desc">Lechuga, tomate, maíz, pepino, cebolla, remolacha, zanahoria, olivas y atún.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">20,00 €</span>
+                    <span class="menu-dish-price">10,00 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Costillar de Cerdo BBQ</span>
-                      <span class="menu-badge badge-gold">Meloso</span>
+                      <span>Ensalada Burrata</span>
+                      <span class="menu-badge badge-gold">Gourmet</span>
+                      <span class="menu-badge badge-veg">🌿 Vegetariana</span>
                     </div>
-                    <p class="menu-dish-desc">Asado a baja temperatura meloso con glaseado barbacoa ahumado casero.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">18,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Carrillada al Vino Tinto de Requena</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
-                    </div>
-                    <p class="menu-dish-desc">Estofada lentamente en reducción de vino tinto comarcal de Requena.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">18,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Hojaldre de Cordero al Foie</span>
-                      <span class="menu-badge badge-gold">Autor</span>
-                    </div>
-                    <p class="menu-dish-desc">Cordero desmigado con foie de pato y salsa demiglace reducida.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">16,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Codillo al Horno Meloso</span>
-                    </div>
-                    <p class="menu-dish-desc">Asado lento hasta lograr piel dorada crujiente y carne tierna en su jugo.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">15,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Osobuco en Salsa</span>
-                    </div>
-                    <p class="menu-dish-desc">Guiso tradicional en su propio jugo con hortalizas de temporada.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">15,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Cachopo Tradicional</span>
-                    </div>
-                    <p class="menu-dish-desc">Relleno de jamón serrano y queso fundido con empanado crujiente.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">15,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Embutido Tradicional de Requena</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
-                    </div>
-                    <p class="menu-dish-desc">Longanizas, morcillas y chorizos artesanos de Requena dorados al punto.</p>
+                    <p class="menu-dish-desc">Rodajas de tomate, burrata, pesto y albahaca.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">12,00 €</span>
@@ -3898,29 +3902,285 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Pechuga de Pollo Dorada</span>
+                      <span>Ensalada de Sardina Anchoada</span>
+                      <span class="menu-badge badge-fresh">Del Mar</span>
                     </div>
-                    <p class="menu-dish-desc">Cocinada al punto con patatas fritas naturales y ensalada fresca.</p>
+                    <p class="menu-dish-desc">Lechuga, tomate, queso fresco y sardinas anchoadas.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">10,00 €</span>
+                    <span class="menu-dish-price">12,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Ensalada Valentina</span>
+                      <span class="menu-badge badge-star">⭐ Especialidad</span>
+                      <span class="menu-badge badge-gold">Valentina</span>
+                    </div>
+                    <p class="menu-dish-desc">Mango, aguacate, tomate, lechuga, queso fresco y frutos secos.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">15,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Ensalada de la Huerta</span>
+                      <span class="menu-badge badge-gold">De la Huerta</span>
+                    </div>
+                    <p class="menu-dish-desc">Tomate a rodajas, bonito del norte, alcaparras y guindillas.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">15,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Tartar de Atún</span>
+                      <span class="menu-badge badge-star">⭐ Premium</span>
+                      <span class="menu-badge badge-fresh">Fresco</span>
+                    </div>
+                    <p class="menu-dish-desc">Aguacate, tomate, cebolla morada, semilla y aceite de sésamo.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">20,00 €</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             ACORDEÓN 3: PLATOS PRINCIPALES
+             ========================================== -->
+        <div class="menu-acc-item" id="acc-principales">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-principales')" role="button" aria-expanded="false">
+            <div class="menu-acc-bg-photo" style="background-image: url('images/entrecot.jpg');"></div>
+            <div class="menu-acc-overlay"></div>
+            
+            <div class="menu-acc-title-group">
+              <div class="menu-acc-icon">🥩</div>
+              <div class="menu-acc-texts">
+                <h3>Platos Principales: Carnes & Pescados</h3>
+                <p>Cortes selectos, chuletón madurado, carnes ibéricas, asados y pescados frescos</p>
+              </div>
+            </div>
+
+            <div class="menu-acc-actions">
+              <span class="menu-acc-badge">17 Platos</span>
+              <div class="menu-acc-chevron">▼</div>
+            </div>
+          </div>
+
+          <div class="menu-acc-body">
+            <div class="menu-acc-inner">
+
+              <!-- Subsección: Carnes y Cortes Nobles -->
+              <h4 class="menu-sub-heading">Carnes Selectas al Punto</h4>
+              <div class="menu-dishes-grid">
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Entrecot</span>
+                      <span class="menu-badge badge-star">⭐ Recomendado</span>
+                    </div>
+                    <p class="menu-dish-desc">Corte noble de ternera sellado al punto con guarnición de patatas y verduras.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">25,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Costillar de Cerdo + Salsa BBQ</span>
+                      <span class="menu-badge badge-gold">Meloso</span>
+                    </div>
+                    <p class="menu-dish-desc">Asado lentamente a baja temperatura hasta quedar meloso, glaseado con barbacoa ahumada casera.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">19,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Chuletón de Vaca (500 grs.)</span>
+                      <span class="menu-badge badge-star">⭐ Premium</span>
+                    </div>
+                    <p class="menu-dish-desc">Vacuno madurado sellado a fuego vivo al punto con sal marina en escamas y pimientos de Padrón.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">26,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Codillo al Horno</span>
+                      <span class="menu-badge badge-gold">Asado Lento</span>
+                    </div>
+                    <p class="menu-dish-desc">Asado pacientemente al horno hasta lograr una piel crujiente y carne tierna en su propio jugo.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">18,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Carrillada al Vino Tinto</span>
+                      <span class="menu-badge badge-do">D.O. Requena</span>
+                    </div>
+                    <p class="menu-dish-desc">Estofada a fuego lento en reducción concentrada de vino tinto comarcal de Requena.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">19,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Hojaldre de Cordero al Foie + Salsa Demiglace</span>
+                      <span class="menu-badge badge-gold">Autor</span>
+                    </div>
+                    <p class="menu-dish-desc">Fino hojaldre relleno de cordero desmigado con foie de pato y salsa demiglace reducida.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">18,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Cachopo</span>
+                      <span class="menu-badge badge-gold">Especialidad</span>
+                    </div>
+                    <p class="menu-dish-desc">Ternera rellena de jamón serrano y queso fundido con empanado dorado y crujiente.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">18,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Embutido de Requena</span>
+                      <span class="menu-badge badge-do">D.O. Requena</span>
+                    </div>
+                    <p class="menu-dish-desc">Selección tradicional de longanizas, morcillas y chorizos artesanos de carnicería de Requena.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">14,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Pechuga Pollo</span>
+                    </div>
+                    <p class="menu-dish-desc">Filetes de pechuga cocinados a la plancha al punto con patatas fritas y ensalada fresca.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">12,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Chuletas de Cordero</span>
+                      <span class="menu-badge badge-gold">Brasa</span>
+                    </div>
+                    <p class="menu-dish-desc">Chuletillas tiernas de cordero lechal doradas a la brasa con sal marina y guarnición.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">18,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Abanico Ibérico</span>
+                      <span class="menu-badge badge-star">⭐ Ibérico</span>
+                    </div>
+                    <p class="menu-dish-desc">Pieza noble y jugosa de cerdo ibérico con veta infiltrada, sellada a fuego vivo con flor de sal.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">18,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Secreto</span>
+                      <span class="menu-badge badge-gold">Ibérico</span>
+                    </div>
+                    <p class="menu-dish-desc">Corte selecto de secreto de cerdo ibérico a la plancha, crujiente por fuera y muy tierno por dentro.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">17,00 €</span>
                   </div>
                 </div>
 
               </div>
 
               <!-- Subsección: Pescados del Día -->
-              <h4 class="menu-sub-heading">Pescados Frescos del Día</h4>
+              <h4 class="menu-sub-heading">Pescados Frescos</h4>
               <div class="menu-dishes-grid">
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Filete de Lubina Fresca</span>
+                      <span>Filete de Lubina</span>
                       <span class="menu-badge badge-star">⭐ Fresco</span>
                       <span class="menu-badge badge-fresh">Recomendado</span>
                     </div>
-                    <p class="menu-dish-desc">A la plancha sobre suave cama de verduras salteadas de temporada.</p>
+                    <p class="menu-dish-desc">Lomo de lubina fresca a la plancha sobre suave cama de verduras salteadas de temporada.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">17,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Emperador</span>
+                    </div>
+                    <p class="menu-dish-desc">Pez espada marcado a la plancha con aliño tradicional de ajo picado, perejil y zumo de limón.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">17,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Sepionet</span>
+                      <span class="menu-badge badge-fresh">Del Mar</span>
+                    </div>
+                    <p class="menu-dish-desc">Sepionet entero fresco a la plancha con guarnición y salsa mery artesanal.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">16,00 €</span>
@@ -3930,37 +4190,13 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Solomillo de Atún Noble</span>
+                      <span>Solomillo de Atún</span>
                       <span class="menu-badge badge-gold">Noble</span>
                     </div>
-                    <p class="menu-dish-desc">Corte grueso de atún marcado al punto con guarnición vegetal.</p>
+                    <p class="menu-dish-desc">Corte grueso de atún noble marcado al punto con guarnición vegetal y sal en escamas.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">16,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Emperador a la Plancha</span>
-                    </div>
-                    <p class="menu-dish-desc">Pez espada a la plancha con aliño tradicional de ajo, perejil y limón.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">15,00 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Sepionet Fresco con Salsa Mery</span>
-                    </div>
-                    <p class="menu-dish-desc">Sepionet entero fresco a la plancha con guarnición y salsa mery.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">15,00 €</span>
+                    <span class="menu-dish-price">18,00 €</span>
                   </div>
                 </div>
 
@@ -3969,10 +4205,10 @@
                     <div class="menu-dish-name">
                       <span>Calamares a la Romana</span>
                     </div>
-                    <p class="menu-dish-desc">Anillas tiernas de calamar con rebozado fino crujiente y limón.</p>
+                    <p class="menu-dish-desc">Anillas tiernas de calamar con rebozado fino crujiente y gajos de limón fresco.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">14,00 €</span>
+                    <span class="menu-dish-price">15,00 €</span>
                   </div>
                 </div>
 
@@ -3999,7 +4235,7 @@
             </div>
 
             <div class="menu-acc-actions">
-              <span class="menu-acc-badge">9 Postres</span>
+              <span class="menu-acc-badge">16 Opciones Dulces</span>
               <div class="menu-acc-chevron">▼</div>
             </div>
           </div>
@@ -4013,37 +4249,9 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Tarta de Queso Casera al Horno</span>
-                      <span class="menu-badge badge-star">⭐ Estrella</span>
-                      <span class="menu-badge badge-gold">Recomendado</span>
+                      <span>Profiteroles con Chocolate</span>
                     </div>
-                    <p class="menu-dish-desc">Receta artesanal de la casa, cremosa, con sirope de chocolate blanco o arándanos.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">5,50 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Brownie Templado con Helado</span>
-                      <span class="menu-badge badge-gold">Favorito</span>
-                    </div>
-                    <p class="menu-dish-desc">Con helado de vainilla Bourbon y salsa de chocolate caliente fundido.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">5,50 €</span>
-                  </div>
-                </div>
-
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Coulant Blanco y Negro</span>
-                      <span class="menu-badge badge-gold">Fundido</span>
-                    </div>
-                    <p class="menu-dish-desc">Volcán de chocolate negro con corazón blanco fundido y helado.</p>
+                    <p class="menu-dish-desc">Rellenos de crema suave y cubiertos con chocolate caliente fundido.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">5,00 €</span>
@@ -4053,9 +4261,10 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Banana Split Clásico</span>
+                      <span>Tiramisú Tradicional</span>
+                      <span class="menu-badge badge-gold">⭐ Clásico</span>
                     </div>
-                    <p class="menu-dish-desc">Con 3 bolas de helado (vainilla, chocolate y fresa), nata montada y caramelo.</p>
+                    <p class="menu-dish-desc">Receta artesanal italiana con café espresso, crema de mascarpone suave y cacao puro.</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">6,00 €</span>
@@ -4065,37 +4274,77 @@
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Profiteroles con Chocolate Fundido</span>
+                      <span>Tarta de Queso Casera al Horno</span>
+                      <span class="menu-badge badge-star">⭐ Estrella</span>
+                      <span class="menu-badge badge-gold">Recomendado</span>
                     </div>
-                    <p class="menu-dish-desc">Rellenos de crema suave y cubiertos con chocolate caliente fundido.</p>
+                    <p class="menu-dish-desc">Con chocolate blanco o arándanos. Receta artesanal cremosa horneada en casa.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">4,50 €</span>
+                    <span class="menu-dish-price">6,00 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Creps Artesanales Recién Hechos</span>
+                      <span>Brownie Templado con Helado</span>
+                      <span class="menu-badge badge-gold">Favorito</span>
                     </div>
-                    <p class="menu-dish-desc">Recién hecho con chocolate fundido o caramelo y nata montada.</p>
+                    <p class="menu-dish-desc">Con helado de vainilla y chocolate caliente fundido.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">4,00 €</span>
+                    <span class="menu-dish-price">6,00 €</span>
                   </div>
                 </div>
 
                 <div class="menu-dish-item">
                   <div class="menu-dish-info">
                     <div class="menu-dish-name">
-                      <span>Bolitas de Trufa de Chocolate</span>
+                      <span>Creps Artesanales</span>
+                    </div>
+                    <p class="menu-dish-desc">Recién hechos con chocolate fundido y nata montada.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">5,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Coulant Blanco y Negro</span>
+                      <span class="menu-badge badge-gold">Fundido</span>
+                    </div>
+                    <p class="menu-dish-desc">Volcán de chocolate negro con corazón blanco fundido y helado de vainilla.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">6,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Bolitas de Trufa con Nata</span>
                       <span class="menu-badge badge-gold">🌾 Sin Gluten</span>
                     </div>
-                    <p class="menu-dish-desc">Trufas de chocolate negro puro artesanas acompañadas de nata.</p>
+                    <p class="menu-dish-desc">Trufas de chocolate negro puro artesanas acompañadas de nata montada.</p>
                   </div>
                   <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">4,00 €</span>
+                    <span class="menu-dish-price">5,00 €</span>
+                  </div>
+                </div>
+
+                <div class="menu-dish-item">
+                  <div class="menu-dish-info">
+                    <div class="menu-dish-name">
+                      <span>Banana Split Especial</span>
+                    </div>
+                    <p class="menu-dish-desc">Con helado de vainilla, chocolate y fresa + nata fresca + caramelo.</p>
+                  </div>
+                  <div class="menu-dish-price-col">
+                    <span class="menu-dish-price">7,00 €</span>
                   </div>
                 </div>
 
@@ -4104,7 +4353,7 @@
                     <div class="menu-dish-name">
                       <span>Bola de Helado Artesano</span>
                     </div>
-                    <p class="menu-dish-desc">Fresa natural, chocolate intenso o vainilla Bourbon.</p>
+                    <p class="menu-dish-desc">Helado de fresa, chocolate o vainilla (a elegir).</p>
                   </div>
                   <div class="menu-dish-price-col">
                     <span class="menu-dish-price">2,00 €</span>
@@ -4118,13 +4367,22 @@
                     <div class="menu-cake-header">
                       <span class="menu-cake-title">
                         <span>🎂 Tartas Especiales Garden</span>
-                        <span class="menu-badge badge-star">Obrador Semanal</span>
+                        <span class="menu-badge badge-star">Obrador Artesanal</span>
                       </span>
-                      <span class="menu-cake-price">5,50 €</span>
+                      <span class="menu-cake-price">6,00 € <span style="font-size: 0.78rem; font-weight: normal; color: rgba(255,255,255,0.7);">/ ración</span></span>
                     </div>
                     <p class="menu-cake-desc">
-                      Elaboración 100% casera y artesanal con recetas exclusivas que cambian cada semana en nuestro obrador. <em>(Pregunta a nuestro personal por las variedades y sabores de esta semana)</em>.
+                      Elaboración 100% casera y artesanal con recetas exclusivas en nuestro propio obrador. Variedades disponibles en vitrina diaria:
                     </p>
+                    <div class="menu-cake-varieties">
+                      <span class="cake-variety-pill">🍓 Tarta de Frutas</span>
+                      <span class="cake-variety-pill">🍪 Tarta de Galleta Lotus</span>
+                      <span class="cake-variety-pill">🍫 Tarta de Oreo</span>
+                      <span class="cake-variety-pill">🎂 Tarta Tres Chocolates</span>
+                      <span class="cake-variety-pill">🌿 Tarta de Pistacho</span>
+                      <span class="cake-variety-pill">✨ Tarta de la Casa</span>
+                      <span class="cake-variety-pill">👵 Tarta de la Abuela</span>
+                    </div>
                   </div>
                   <div class="menu-cake-video-wrap">
                     <video 
@@ -5083,7 +5341,7 @@
       }
 
       if (floralProgressLead) {
-        floralProgressLead.style.left = progressPercent + '%';
+        floralProgressLead.style.left = `clamp(12px, ${progressPercent}%, calc(100% - 12px))`;
         const rot = scrollTop * 0.35;
         floralProgressLead.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
       }
