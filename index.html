@@ -1693,6 +1693,190 @@
       border-radius: 999px;
     }
 
+    /* ========================================================
+       SUB-ACORDEONES ANIDADOS (BODEGA & VINOS MOBILE-FIRST)
+       ======================================================== */
+    .menu-sub-acc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+
+    .menu-sub-acc-item {
+      border-radius: var(--radius-md);
+      background: rgba(12, 34, 21, 0.75);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      overflow: hidden;
+      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .menu-sub-acc-item:hover {
+      border-color: rgba(212, 175, 55, 0.45);
+    }
+
+    .menu-sub-acc-item.active {
+      background: rgba(9, 26, 16, 0.95);
+      border-color: rgba(212, 175, 55, 0.55);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(212, 175, 55, 0.1);
+    }
+
+    .menu-sub-acc-header {
+      padding: 0.85rem 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.08) 0%, transparent 100%);
+      transition: background 0.25s ease;
+    }
+
+    .menu-sub-acc-header:hover {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.14) 0%, rgba(212, 175, 55, 0.03) 100%);
+    }
+
+    .menu-sub-acc-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .menu-sub-acc-icon {
+      font-size: 1.35rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: rgba(212, 175, 55, 0.14);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      flex-shrink: 0;
+    }
+
+    .menu-sub-acc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.05rem;
+      line-height: 1.25;
+    }
+
+    .menu-sub-acc-desc {
+      font-size: 0.75rem;
+      color: #a7f3d0;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+    }
+
+    @media (max-width: 480px) {
+      .menu-sub-acc-desc {
+        max-width: 175px;
+      }
+    }
+
+    .menu-sub-acc-right {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .menu-sub-acc-count {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .menu-sub-acc-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-light);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s ease, color 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .menu-sub-acc-item.active .menu-sub-acc-chevron {
+      transform: rotate(180deg);
+      background: linear-gradient(135deg, #d4af37 0%, #f3c01a 100%);
+      color: #061108;
+    }
+
+    .menu-sub-acc-body {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+
+    .menu-sub-acc-item.active .menu-sub-acc-body {
+      max-height: 3500px;
+      opacity: 1;
+    }
+
+    .menu-sub-acc-content {
+      padding: 0.95rem 0.95rem 1.15rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.16);
+      background: rgba(5, 18, 11, 0.55);
+    }
+
+    /* Suplementos especiales (Tocado, Tiempo) transparentes y grisáceos */
+    .menu-dish-item.menu-dish-supplement {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px dashed rgba(212, 175, 55, 0.22);
+      opacity: 0.68;
+      box-shadow: none;
+      min-height: 42px;
+      padding: 0.65rem 0.95rem;
+      transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+    .menu-dish-item.menu-dish-supplement:hover {
+      opacity: 0.95;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(212, 175, 55, 0.45);
+      transform: none;
+    }
+    .menu-dish-item.menu-dish-supplement .menu-dish-name {
+      color: #94a3b8;
+      font-size: 0.88rem;
+    }
+    .menu-dish-item.menu-dish-supplement .menu-dish-price {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+    }
+    .menu-dish-item.menu-dish-supplement .supplement-badge {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius-full);
+      background: rgba(148, 163, 184, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #94a3b8;
+      font-weight: 500;
+      margin-left: 0.35rem;
+    }
+
     @media (max-width: 480px) {
       #menu-section {
         padding: 3.5rem 0 5rem;
@@ -3342,7 +3526,7 @@
           <button type="button" class="menu-cat-tab active" data-category="all" aria-selected="true">
             <span class="tab-icon">✨</span>
             <span>Ver Todos</span>
-            <span class="tab-count">85</span>
+            <span class="tab-count">130</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="entrantes" aria-selected="false">
             <span class="tab-icon">🥘</span>
@@ -3364,10 +3548,15 @@
             <span>Postres Artesanales</span>
             <span class="tab-count">16</span>
           </button>
-          <button type="button" class="menu-cat-tab" data-category="bebidas" aria-selected="false">
+          <button type="button" class="menu-cat-tab" data-category="vinos" aria-selected="false">
             <span class="tab-icon">🍷</span>
-            <span>Bebidas & Bodega</span>
-            <span class="tab-count">12</span>
+            <span>Vinos de la Tierra</span>
+            <span class="tab-count">18</span>
+          </button>
+          <button type="button" class="menu-cat-tab" data-category="cafes" aria-selected="false">
+            <span class="tab-icon">🍺</span>
+            <span>Cervezas, Refrescos & Cafés</span>
+            <span class="tab-count">39</span>
           </button>
         </div>
       </nav>
@@ -4410,23 +4599,23 @@
         </div>
 
         <!-- ==========================================
-             ACORDEÓN 4: BEBIDAS & BODEGA
+             ACORDEÓN 5: VINOS DE LA TIERRA
              ========================================== -->
-        <div class="menu-acc-item" id="acc-bebidas">
-          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-bebidas')" role="button" aria-expanded="false">
+        <div class="menu-acc-item" id="acc-vinos">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-vinos')" role="button" aria-expanded="false">
             <div class="menu-acc-bg-photo" style="background-image: url('images/salon-jardin.jpg');"></div>
             <div class="menu-acc-overlay"></div>
             
             <div class="menu-acc-title-group">
               <div class="menu-acc-icon">🍷</div>
               <div class="menu-acc-texts">
-                <h3>Bebidas, Vinos & Cafetería</h3>
-                <p>Vinos de la D.O. Utiel-Requena, cavas, cervezas de barril y cafés especiales</p>
+                <h3>Vinos de la Tierra</h3>
+                <p>Selección de vinos tintos, blancos, rosados y cavas de nuestras bodegas</p>
               </div>
             </div>
 
             <div class="menu-acc-actions">
-              <span class="menu-acc-badge">12 Opciones</span>
+              <span class="menu-acc-badge">18 Vinos</span>
               <div class="menu-acc-chevron">▼</div>
             </div>
           </div>
@@ -4434,165 +4623,802 @@
           <div class="menu-acc-body">
             <div class="menu-acc-inner">
 
-              <!-- Subsección: Vinos D.O. & Cavas -->
-              <h4 class="menu-sub-heading">Vinos D.O. Utiel-Requena & Cavas</h4>
-              <div class="menu-dishes-grid">
+              <p style="font-size: 0.85rem; color: #a7f3d0; margin-bottom: 0.85rem; text-align: center;">
+                Toca cada variedad para desplegar sus vinos y precios:
+              </p>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Tinto Bobal Selección</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
-                      <span class="menu-badge badge-star">⭐ Recomendado</span>
+              <div class="menu-sub-acc-list">
+
+                <!-- SUB-ACORDEÓN 1: VINO TINTO -->
+                <div class="menu-sub-acc-item" id="subacc-tintos">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-tintos')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">🍷</span>
+                      <h4 class="menu-sub-acc-title">Vino Tinto</h4>
                     </div>
-                    <p class="menu-dish-desc">Vino tinto de uva Bobal autóctona con cuerpo, fruta madura y notas de roble.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">7 Vinos</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">3,50 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span> / 16,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Syrah</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Cabernet Sauvignon</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Bobal Merlot</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Veterum Tinajas</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">18,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 4,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Al Vent Tempranillo</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">16,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,20 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Pasión de Bobal</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">18,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 4,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Marilunas</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">17,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 4,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Blanco Sauvignon & Macabeo</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
+                <!-- SUB-ACORDEÓN 2: VINO BLANCO -->
+                <div class="menu-sub-acc-item" id="subacc-blancos">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-blancos')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">🥂</span>
+                      <h4 class="menu-sub-acc-title">Vino Blanco</h4>
                     </div>
-                    <p class="menu-dish-desc">Blanco fresco, aromático y floral, perfecto para maridar tapas y pescados.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">8 Vinos</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">3,50 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span> / 15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Verdejo</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Pasión de Bobal</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">18,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 4,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Macabeo + Sauvignon Blanc</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Al Vent Sauvignon Blanc</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">16,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,20 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Frizzante</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">13,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Fuenteseca</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Sierra Salinas</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">9,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 2,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula Brut (cava)</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Rosado Bobal Fresco</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
+                <!-- SUB-ACORDEÓN 3: VINO ROSADO -->
+                <div class="menu-sub-acc-item" id="subacc-rosados">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-rosados')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">🌸</span>
+                      <h4 class="menu-sub-acc-title">Vino Rosado</h4>
                     </div>
-                    <p class="menu-dish-desc">Aroma a frutos rojos y flores, paso en boca fresco, goloso y ligero.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">3 Vinos</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">3,50 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span> / 14,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
-                  </div>
-                </div>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Cava Brut Nature Reserva</span>
-                      <span class="menu-badge badge-do">D.O. Requena</span>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Fuenteseca</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aula</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">15,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 3,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Sierra Salinas</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">9,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span> / 2,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span></span>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-                    <p class="menu-dish-desc">Burbuja fina y elegante de método tradicional elaborado en bodegas de Requena.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">4,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">copa</span> / 18,00 € <span style="font-size:0.75rem; font-weight:normal; color:#d1fae5;">bot.</span></span>
                   </div>
                 </div>
 
               </div>
 
-              <!-- Subsección: Cervezas, Refrescos y Cafés -->
-              <h4 class="menu-sub-heading">Cervezas, Cócteles & Cafetería</h4>
-              <div class="menu-dishes-grid">
+            </div>
+          </div>
+        </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Caña de Cerveza de Barril</span>
+        <!-- ==========================================
+             ACORDEÓN 6: CERVEZAS, REFRESCOS & CAFÉS
+             ========================================== -->
+        <div class="menu-acc-item" id="acc-cafes">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-cafes')" role="button" aria-expanded="false">
+            <div class="menu-acc-bg-photo" style="background-image: url('images/neon-garden.jpg');"></div>
+            <div class="menu-acc-overlay"></div>
+            
+            <div class="menu-acc-title-group">
+              <div class="menu-acc-icon">🍺</div>
+              <div class="menu-acc-texts">
+                <h3>Cervezas, Refrescos & Cafés</h3>
+                <p>Cervezas de barril y tercio, refrescos y cafés de especialidad</p>
+              </div>
+            </div>
+
+            <div class="menu-acc-actions">
+              <span class="menu-acc-badge">39 Opciones</span>
+              <div class="menu-acc-chevron">▼</div>
+            </div>
+          </div>
+
+          <div class="menu-acc-body">
+            <div class="menu-acc-inner">
+
+              <p style="font-size: 0.85rem; color: #a7f3d0; margin-bottom: 0.85rem; text-align: center;">
+                Toca cada variedad para desplegar sus opciones y precios:
+              </p>
+
+              <div class="menu-sub-acc-list">
+
+                <!-- SUB-ACORDEÓN 1: CERVEZAS & APERITIVOS -->
+                <div class="menu-sub-acc-item" id="subacc-cervezas">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-cervezas')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">🍺</span>
+                      <h4 class="menu-sub-acc-title">Cervezas</h4>
                     </div>
-                    <p class="menu-dish-desc">Rubia bien fría con su espuma densa y perfecta.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">22 Cervezas</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">2,20 €</span>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Amstel</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,10 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Águila Dorada</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,10 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Águila sin Filtrar</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,50 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Radler</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,30 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Desperados</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,00 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Alcázar</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,50 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Heineken</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Amstel 0,0 Tostada</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,50 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Heineken 0,0</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,80 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>1870 Rubia</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,30 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Ladrón de Manzanas</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Doble Amstel</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,10 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Doble Oro</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,30 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Alhambra Verde</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Mahou</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,50 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Cruzcampo sin Gluten</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Caña 22cl</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Caña 28cl</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,80 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Tanque</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">3,60 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Jarra de Cerveza</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">9,00 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Tinto de Verano</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">3,00 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Sangría</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">12,00 €</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Doble / Pinta de Cerveza</span>
+                <!-- SUB-ACORDEÓN 2: REFRESCOS -->
+                <div class="menu-sub-acc-item" id="subacc-refrescos">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-refrescos')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">🥤</span>
+                      <h4 class="menu-sub-acc-title">Refrescos</h4>
                     </div>
-                    <p class="menu-dish-desc">Copa o vaso grande de cerveza de grifo recién tirada.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">7 Refrescos</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">3,00 €</span>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Coca-Cola</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Coca-Cola Cero</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Coca-Cola 0,0</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Fanta Naranja y Limón</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Nestea Limón y Maracuyá</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Aquarius Naranja y Limón</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Zumos (Piña, Naranja, Melocotón)</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">2,30 €</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Cerveza Artesana / Tostada / Especial</span>
-                      <span class="menu-badge badge-gold">Selección</span>
+                <!-- SUB-ACORDEÓN 3: CAFÉS -->
+                <div class="menu-sub-acc-item" id="subacc-cafes">
+                  <div class="menu-sub-acc-header" onclick="toggleSubAccordion('subacc-cafes')" role="button" aria-expanded="false">
+                    <div class="menu-sub-acc-left">
+                      <span class="menu-sub-acc-icon">☕</span>
+                      <h4 class="menu-sub-acc-title">Cafés</h4>
                     </div>
-                    <p class="menu-dish-desc">Tostadas especiales, IPA de autor o 0,0% sin alcohol.</p>
+                    <div class="menu-sub-acc-right">
+                      <span class="menu-sub-acc-count">10 Opciones</span>
+                      <span class="menu-sub-acc-chevron">▼</span>
+                    </div>
                   </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">3,50 €</span>
-                  </div>
-                </div>
+                  <div class="menu-sub-acc-body">
+                    <div class="menu-sub-acc-content">
+                      <div class="menu-dishes-grid">
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Refrescos & Aguas Minerales</span>
-                    </div>
-                    <p class="menu-dish-desc">Coca-Cola, Fanta, Aquarius, Nestea, Tónica o agua con/sin gas.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">2,50 €</span>
-                  </div>
-                </div>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Solo</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,20 €</span>
+                          </div>
+                        </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Aperol Spritz / Cóctel de la Casa</span>
-                      <span class="menu-badge badge-gold">Cocktail</span>
-                    </div>
-                    <p class="menu-dish-desc">Aperol, cava de Requena, golpe de soda y rodaja de naranja fresca.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">6,50 €</span>
-                  </div>
-                </div>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Cortado</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,40 €</span>
+                          </div>
+                        </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Café Espresso / Cortado / Con Leche</span>
-                    </div>
-                    <p class="menu-dish-desc">Café 100% arábica de tueste natural y crema suave.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">1,50 €</span>
-                  </div>
-                </div>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Bombón</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,70 €</span>
+                          </div>
+                        </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Café Bombón / Capuchino</span>
-                    </div>
-                    <p class="menu-dish-desc">Con leche condensada o crema espumada con cacao fino.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">1,80 €</span>
-                  </div>
-                </div>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Carajillo</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,70 €</span>
+                          </div>
+                        </div>
 
-                <div class="menu-dish-item">
-                  <div class="menu-dish-info">
-                    <div class="menu-dish-name">
-                      <span>Carajillo Quemado Tradicional</span>
-                      <span class="menu-badge badge-gold">Tradicional</span>
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Café con Leche</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,70 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Cremaet</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">3,00 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Infusiones</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,30 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>Infusión Karma</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">1,80 €</span>
+                          </div>
+                        </div>
+
+                        <!-- Suplementos transparentes/grisáceos -->
+                        <div class="menu-dish-item menu-dish-supplement">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>+ Tocado</span>
+                              <span class="supplement-badge">Suplemento</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">+ 0,20 €</span>
+                          </div>
+                        </div>
+
+                        <div class="menu-dish-item menu-dish-supplement">
+                          <div class="menu-dish-info">
+                            <div class="menu-dish-name">
+                              <span>+ Tiempo</span>
+                              <span class="supplement-badge">Suplemento con hielo</span>
+                            </div>
+                          </div>
+                          <div class="menu-dish-price-col">
+                            <span class="menu-dish-price">+ 0,10 €</span>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-                    <p class="menu-dish-desc">Café con licor quemado con limón, canela en rama y granos de café.</p>
-                  </div>
-                  <div class="menu-dish-price-col">
-                    <span class="menu-dish-price">2,50 €</span>
                   </div>
                 </div>
 
@@ -5485,6 +6311,22 @@
       updateStickyTabHighlights();
     }
 
+    function toggleSubAccordion(subId, forceOpen = null) {
+      const targetSub = document.getElementById(subId);
+      if (!targetSub) return;
+
+      const isAlreadyActive = targetSub.classList.contains('active');
+      const shouldOpen = forceOpen !== null ? forceOpen : !isAlreadyActive;
+
+      if (shouldOpen) {
+        targetSub.classList.add('active');
+        targetSub.querySelector('.menu-sub-acc-header')?.setAttribute('aria-expanded', 'true');
+      } else {
+        targetSub.classList.remove('active');
+        targetSub.querySelector('.menu-sub-acc-header')?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
     function toggleAllAccordions(openAll) {
       document.querySelectorAll('.menu-acc-item').forEach(item => {
         if (openAll) {
@@ -5493,6 +6335,15 @@
         } else {
           item.classList.remove('active');
           item.querySelector('.menu-acc-header')?.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.querySelectorAll('.menu-sub-acc-item').forEach(sub => {
+        if (openAll) {
+          sub.classList.add('active');
+          sub.querySelector('.menu-sub-acc-header')?.setAttribute('aria-expanded', 'true');
+        } else {
+          sub.classList.remove('active');
+          sub.querySelector('.menu-sub-acc-header')?.setAttribute('aria-expanded', 'false');
         }
       });
       updateStickyTabHighlights();
