@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -54,12 +54,17 @@
     }
 
     html {
-      scroll-behavior: smooth;
       overflow-x: hidden;
       overflow-x: clip;
       max-width: 100%;
       width: 100%;
       overscroll-behavior-x: none;
+    }
+
+    @media (min-width: 769px) {
+      html {
+        scroll-behavior: smooth;
+      }
     }
 
     body {
@@ -100,18 +105,31 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
     }
 
-    .garden-parallax-layer {
+    .garden-breathe-layer {
       position: absolute;
       inset: -15%;
       width: 130%;
       height: 130%;
+      will-change: transform;
+      animation: gardenBreathe 16s ease-in-out infinite alternate;
+    }
+
+    .garden-parallax-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       background-image: var(--bg-floral-img);
       background-size: cover;
       background-position: center;
-      will-change: transform;
-      animation: gardenBreathe 16s ease-in-out infinite alternate;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     @keyframes gardenBreathe {
@@ -144,7 +162,6 @@
       will-change: transform;
       filter: drop-shadow(0 12px 25px rgba(0,0,0,0.85));
       opacity: 0.92;
-      transition: transform 0.1s linear;
     }
 
     .anim-float-1 { animation: floatKey1 8s ease-in-out infinite alternate; }
@@ -189,7 +206,6 @@
       width: 0%;
       overflow: hidden;
       will-change: width;
-      transition: width 0.08s linear;
     }
 
     .floral-progress-svg-track {
@@ -504,19 +520,25 @@
        ======================================================== */
     .hero-scroll-container {
       position: relative;
-      height: 240vh;
+      height: 220svh;
+      height: 220vh;
       z-index: 5;
     }
 
     .hero-sticky-viewport {
       position: sticky;
       top: 0;
+      height: 100svh;
       height: 100vh;
       width: 100%;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     .garden-cover-layer {
@@ -526,7 +548,11 @@
       background-image: var(--bg-floral-img);
       background-size: cover;
       background-position: center;
-      will-change: clip-path, transform, opacity;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2564,6 +2590,13 @@
         font-size: 1.15rem !important;
       }
 
+      .botanical-elem {
+        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)) !important;
+      }
+      .garden-cover-layer {
+        clip-path: none !important;
+      }
+
       .floating-whatsapp { bottom: 1.5rem; right: 1.25rem; }
       
       /* Bento Grid Mobile Horizontal Touch Slider */
@@ -2884,7 +2917,9 @@
        LIVING GARDEN DYNAMIC PARALLAX CANVAS & MOVING ELEMENTS
        ======================================================== -->
   <div class="living-garden-canvas">
-    <div class="garden-parallax-layer" id="gardenParallaxLayer"></div>
+    <div class="garden-breathe-layer">
+      <div class="garden-parallax-layer" id="gardenParallaxLayer"></div>
+    </div>
     <div class="garden-atmospheric-mask"></div>
   </div>
 
@@ -6139,6 +6174,7 @@
   <!-- JAVASCRIPT: SCROLL REVEAL & ACCORDION LOGIC -->
   <script>
     const heroScrollContainer = document.getElementById('heroScrollContainer');
+    const heroStickyViewport = heroScrollContainer ? heroScrollContainer.querySelector('.hero-sticky-viewport') : null;
     const gardenCoverLayer = document.getElementById('gardenCoverLayer');
     const revealedContent = document.getElementById('revealedContent');
     const mainHeader = document.getElementById('mainHeader');
@@ -6151,76 +6187,127 @@
     const botanicalElements = document.querySelectorAll('.botanical-elem');
 
     let ticking = false;
+    let cachedWindowHeight = window.innerHeight;
+    let cachedDocHeight = 0;
+    let cachedHeroTotalScroll = 0;
+    let cachedIsMobile = false;
+
+    function measureLayout() {
+      cachedWindowHeight = window.innerHeight;
+      cachedIsMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+      const docScrH = Math.max(
+        document.body.scrollHeight || 0,
+        document.documentElement.scrollHeight || 0
+      );
+      cachedDocHeight = Math.max(1, docScrH - cachedWindowHeight);
+
+      if (heroScrollContainer) {
+        const stickyH = (heroStickyViewport ? heroStickyViewport.clientHeight : 0) || cachedWindowHeight;
+        cachedHeroTotalScroll = Math.max(1, heroScrollContainer.offsetHeight - stickyH);
+      }
+    }
+
+    measureLayout();
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function updateDynamicMotion() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight) - window.innerHeight;
-      const progressPercent = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight * 100))) : 0;
-      
+      const scrollTop = window.scrollY || window.pageYOffset || 0;
+
       // Update Animated 3D Floral Vine Scroll Progress
-      if (floralProgressFill) {
-        floralProgressFill.style.width = progressPercent + '%';
+      if (cachedDocHeight > 0) {
+        const progressPercent = Math.min(100, Math.max(0, (scrollTop / cachedDocHeight * 100)));
+        if (floralProgressFill) {
+          floralProgressFill.style.width = progressPercent.toFixed(2) + '%';
+        }
+        if (floralProgressLead) {
+          floralProgressLead.style.left = `clamp(12px, ${progressPercent.toFixed(2)}%, calc(100% - 12px))`;
+          const rot = (scrollTop * 0.35) % 360;
+          floralProgressLead.style.transform = `translate3d(-50%, -50%, 0) rotate(${rot.toFixed(1)}deg)`;
+        }
       }
 
-      if (floralProgressLead) {
-        floralProgressLead.style.left = `clamp(12px, ${progressPercent}%, calc(100% - 12px))`;
-        const rot = scrollTop * 0.35;
-        floralProgressLead.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+      // 1. Dynamic Parallax on Background Canvas (Isolated on inner layer)
+      if (gardenParallaxLayer) {
+        const bgTranslateY = (scrollTop * (cachedIsMobile ? 0.08 : 0.14));
+        gardenParallaxLayer.style.transform = `translate3d(0, -${bgTranslateY.toFixed(1)}px, 0)`;
       }
 
-      // 1. Dynamic Parallax on Background Canvas
-      const bgTranslateY = (scrollTop * 0.14);
-      const bgRotate = Math.sin(scrollTop * 0.002) * 1.5;
-      gardenParallaxLayer.style.transform = `translate3d(0, -${bgTranslateY}px, 0) rotate(${bgRotate}deg) scale(1.08)`;
+      // 2. Dynamic Floating Flowers & Leaves Motion (On mobile, CSS keyframe float runs on GPU compositor)
+      if (!cachedIsMobile && botanicalElements.length > 0) {
+        botanicalElements.forEach((elem) => {
+          const speed = parseFloat(elem.getAttribute('data-speed')) || 0.2;
+          const rotFactor = parseFloat(elem.getAttribute('data-rotation')) || 0.05;
+          const translateY = scrollTop * speed;
+          const rotateDeg = (scrollTop * rotFactor);
+          const swayX = Math.sin((scrollTop + 80) * 0.0035) * 22;
+          elem.style.transform = `translate3d(${swayX.toFixed(1)}px, ${translateY.toFixed(1)}px, 0) rotate(${rotateDeg.toFixed(1)}deg)`;
+        });
+      }
 
-      // 2. Dynamic Floating Flowers & Leaves Motion
-      botanicalElements.forEach((elem) => {
-        const speed = parseFloat(elem.getAttribute('data-speed')) || 0.2;
-        const rotFactor = parseFloat(elem.getAttribute('data-rotation')) || 0.05;
-        const translateY = scrollTop * speed;
-        const rotateDeg = (scrollTop * rotFactor);
-        const swayX = Math.sin((scrollTop + 80) * 0.0035) * 22;
-        elem.style.transform = `translate3d(${swayX}px, ${translateY}px, 0) rotate(${rotateDeg}deg)`;
-      });
+      // 3. Hero Scroll Reveal Calculation (Zero Layout Thrashing & Stable Math)
+      if (heroScrollContainer && gardenCoverLayer && revealedContent) {
+        const heroCurrentScroll = Math.max(0, scrollTop);
+        const progress = Math.min(1, Math.max(0, heroCurrentScroll / cachedHeroTotalScroll));
 
-      // 3. Hero Scroll Reveal Calculation
-      const heroRect = heroScrollContainer.getBoundingClientRect();
-      const heroTotalScroll = heroScrollContainer.offsetHeight - window.innerHeight;
-      const heroCurrentScroll = Math.max(0, -heroRect.top);
-      const progress = Math.min(1, Math.max(0, heroCurrentScroll / heroTotalScroll));
-
-      if (progress <= 0.02) {
-        gardenCoverLayer.style.clipPath = 'circle(150% at 50% 50%)';
-        gardenCoverLayer.style.opacity = '1';
-        gardenCoverLayer.style.transform = 'scale(1)';
-        scrollHintBtn.style.opacity = '1';
-
-        revealedContent.style.opacity = '0';
-        revealedContent.style.transform = 'scale(0.9) translateY(30px)';
-        if (mainHeader) mainHeader.classList.remove('header-visible');
-      } else {
-        const circleSize = Math.max(0, (1 - progress * 1.35) * 150);
-        gardenCoverLayer.style.clipPath = `circle(${circleSize}% at 50% 50%)`;
-        gardenCoverLayer.style.opacity = `${Math.max(0, 1 - progress * 1.1)}`;
-        gardenCoverLayer.style.transform = `scale(${1 + progress * 0.12})`;
-        scrollHintBtn.style.opacity = `${Math.max(0, 1 - progress * 4)}`;
-
-        const brandOpacity = Math.min(1, Math.max(0, (progress - 0.12) * 2.2));
-        const brandScale = 0.92 + (brandOpacity * 0.08);
-        const brandTranslate = (1 - brandOpacity) * 20;
-
-        revealedContent.style.opacity = brandOpacity;
-        revealedContent.style.transform = `scale(${brandScale}) translateY(${brandTranslate}px)`;
-
-        if (mainHeader) {
-          if (progress > 0.4) {
-            mainHeader.classList.add('header-visible');
+        if (progress <= 0.01) {
+          if (!cachedIsMobile) {
+            gardenCoverLayer.style.clipPath = 'circle(150% at 50% 50%)';
           } else {
-            mainHeader.classList.remove('header-visible');
+            gardenCoverLayer.style.clipPath = '';
+          }
+          gardenCoverLayer.style.opacity = '1';
+          gardenCoverLayer.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          gardenCoverLayer.style.visibility = 'visible';
+          gardenCoverLayer.style.pointerEvents = 'auto';
+          if (scrollHintBtn) scrollHintBtn.style.opacity = '1';
+
+          revealedContent.style.opacity = '0';
+          revealedContent.style.transform = 'translate3d(0, 30px, 0) scale(0.92)';
+          if (mainHeader) mainHeader.classList.remove('header-visible');
+        } else {
+          const coverOpacity = Math.max(0, 1 - progress * 1.15);
+          const coverScale = 1 + progress * 0.12;
+
+          gardenCoverLayer.style.opacity = coverOpacity.toFixed(3);
+          gardenCoverLayer.style.transform = `translate3d(0, 0, 0) scale(${coverScale.toFixed(3)})`;
+
+          if (cachedIsMobile) {
+            // Mobile: 100% GPU accelerated fade & scale. No software clipPath rasterization jitter!
+            gardenCoverLayer.style.clipPath = '';
+          } else {
+            // Desktop: Aperture circle reveal
+            const circleSize = Math.max(0, (1 - progress * 1.35) * 150);
+            gardenCoverLayer.style.clipPath = `circle(${circleSize.toFixed(1)}% at 50% 50%)`;
+          }
+
+          if (progress >= 0.95) {
+            gardenCoverLayer.style.visibility = 'hidden';
+            gardenCoverLayer.style.pointerEvents = 'none';
+          } else {
+            gardenCoverLayer.style.visibility = 'visible';
+            gardenCoverLayer.style.pointerEvents = 'auto';
+          }
+
+          if (scrollHintBtn) {
+            scrollHintBtn.style.opacity = Math.max(0, 1 - progress * 4).toFixed(2);
+          }
+
+          const brandOpacity = Math.min(1, Math.max(0, (progress - 0.12) * 2.2));
+          const brandScale = 0.92 + (brandOpacity * 0.08);
+          const brandTranslate = (1 - brandOpacity) * 20;
+
+          revealedContent.style.opacity = brandOpacity.toFixed(3);
+          revealedContent.style.transform = `translate3d(0, ${brandTranslate.toFixed(1)}px, 0) scale(${brandScale.toFixed(3)})`;
+
+          if (mainHeader) {
+            if (progress > 0.4) {
+              mainHeader.classList.add('header-visible');
+            } else {
+              mainHeader.classList.remove('header-visible');
+            }
           }
         }
       }
@@ -6235,7 +6322,7 @@
 
       // 4. Sticky Section Quick-Jump Nav & Back-to-Top Button Visibility
       if (stickySectionNav) {
-        if (progress > 0.45 || scrollTop > 320) {
+        if (scrollTop > 300) {
           stickySectionNav.classList.add('visible');
         } else {
           stickySectionNav.classList.remove('visible');
@@ -6250,23 +6337,26 @@
         }
       }
 
-      // 5. ScrollSpy for Sticky Section Navigation Tabs
-      const sectionIds = ['esencia', 'especialidades', 'menu-section', 'galeria', 'reservas', 'contacto'];
-      let currentActive = '';
-      sectionIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 180 && rect.bottom >= 180) {
-            currentActive = id;
+      // 5. ScrollSpy for Sticky Section Navigation Tabs (Only when scrolled past hero)
+      if (scrollTop > cachedHeroTotalScroll) {
+        const sectionIds = ['esencia', 'especialidades', 'menu-section', 'galeria', 'reservas', 'contacto'];
+        let currentActive = '';
+        for (let i = 0; i < sectionIds.length; i++) {
+          const el = document.getElementById(sectionIds[i]);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 180 && rect.bottom >= 180) {
+              currentActive = sectionIds[i];
+              break;
+            }
           }
         }
-      });
 
-      if (currentActive) {
-        document.querySelectorAll('.sticky-nav-pill').forEach(pill => {
-          pill.classList.toggle('active', pill.getAttribute('data-target') === currentActive);
-        });
+        if (currentActive) {
+          document.querySelectorAll('.sticky-nav-pill').forEach(pill => {
+            pill.classList.toggle('active', pill.getAttribute('data-target') === currentActive);
+          });
+        }
       }
 
       ticking = false;
@@ -6280,7 +6370,16 @@
     }
 
     window.addEventListener('scroll', onScrollRequest, { passive: true });
-    window.addEventListener('resize', onScrollRequest, { passive: true });
+    window.addEventListener('resize', () => {
+      measureLayout();
+      onScrollRequest();
+    }, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        measureLayout();
+        onScrollRequest();
+      }, 200);
+    }, { passive: true });
     updateDynamicMotion();
 
     // ========================================================
@@ -6363,6 +6462,7 @@
           tab.classList.toggle('active', matchingItem ? matchingItem.classList.contains('active') : false);
         }
       });
+      setTimeout(measureLayout, 320);
     }
 
     // Event listeners para los botones de categoría en la barra sticky
