@@ -53,6 +53,7 @@ public class FastServer {
                 else if (ext == ".webp") mime = "image/webp";
                 else if (ext == ".svg") mime = "image/svg+xml";
                 else if (ext == ".mp4") mime = "video/mp4";
+                else if (ext == ".mov") mime = "video/quicktime";
 
                 res.ContentType = mime;
                 res.AddHeader("Access-Control-Allow-Origin", "*");

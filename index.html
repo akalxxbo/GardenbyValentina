@@ -1719,6 +1719,60 @@
       border-radius: 999px;
     }
 
+    /* ESTILOS DE VÍDEO PARA TABLAS BY GARDEN (FORMATO 9:16 VERTICAL REEL) */
+    .tabla-dish-card {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 1.15rem !important;
+      background: rgba(10, 26, 16, 0.78) !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      border-radius: var(--radius-lg) !important;
+      padding: 1.25rem !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .tabla-dish-card:hover {
+      border-color: var(--border-gold-strong) !important;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(212, 175, 55, 0.22) !important;
+    }
+
+    .tabla-video-container {
+      width: 100%;
+      max-width: 340px;
+      margin: 0.35rem auto 0;
+      aspect-ratio: 9 / 16;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(0, 0, 0, 0.5);
+      background: #040c06;
+    }
+
+    @media (max-width: 480px) {
+      .tabla-video-container {
+        max-width: 100%;
+        aspect-ratio: 9 / 16;
+      }
+    }
+
+    .tabla-video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      /* Realce de calidad, nitidez, contraste y color gourmet */
+      filter: contrast(1.07) saturate(1.14) brightness(1.02);
+      -webkit-filter: contrast(1.07) saturate(1.14) brightness(1.02);
+      image-rendering: -webkit-optimize-contrast;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
     /* ========================================================
        SUB-ACORDEONES ANIDADOS (BODEGA & VINOS MOBILE-FIRST)
        ======================================================== */
@@ -3561,7 +3615,7 @@
           <button type="button" class="menu-cat-tab active" data-category="all" aria-selected="true">
             <span class="tab-icon">✨</span>
             <span>Ver Todos</span>
-            <span class="tab-count">130</span>
+            <span class="tab-count">132</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="entrantes" aria-selected="false">
             <span class="tab-icon">🥘</span>
@@ -3577,6 +3631,11 @@
             <span class="tab-icon">🥩</span>
             <span>Platos Principales</span>
             <span class="tab-count">17</span>
+          </button>
+          <button type="button" class="menu-cat-tab" data-category="tablas" aria-selected="false">
+            <span class="tab-icon">🍱</span>
+            <span>Tablas by Garden</span>
+            <span class="tab-count">2</span>
           </button>
           <button type="button" class="menu-cat-tab" data-category="postres" aria-selected="false">
             <span class="tab-icon">🍰</span>
@@ -4443,7 +4502,130 @@
         </div>
 
         <!-- ==========================================
-             ACORDEÓN 3: POSTRES ARTESANALES
+             ACORDEÓN 4: TABLAS BY GARDEN
+             ========================================== -->
+        <div class="menu-acc-item" id="acc-tablas">
+          <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-tablas')" role="button" aria-expanded="false">
+            <div class="menu-acc-bg-photo" style="background-image: url('images/pulpo.jpg');"></div>
+            <div class="menu-acc-overlay"></div>
+            
+            <div class="menu-acc-title-group">
+              <div class="menu-acc-icon">🍱</div>
+              <div class="menu-acc-texts">
+                <h3>Tablas by Garden</h3>
+                <p>Grandes degustaciones para compartir • 25 € / persona (Mínimo 2 personas)</p>
+              </div>
+            </div>
+
+            <div class="menu-acc-actions">
+              <span class="menu-acc-badge">2 Tablas Degustación</span>
+              <div class="menu-acc-chevron">▼</div>
+            </div>
+          </div>
+
+          <div class="menu-acc-body">
+            <div class="menu-acc-inner">
+
+              <!-- Cartel informativo destacado de la experiencia Tablas by Garden -->
+              <div style="background: linear-gradient(135deg, rgba(14, 34, 21, 0.95) 0%, rgba(8, 26, 15, 0.98) 100%); border: 1px solid var(--border-gold); border-radius: var(--radius-md); padding: 1.15rem 1.35rem; margin-bottom: 1.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(212, 175, 55, 0.18); border: 1px solid var(--border-gold-strong); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+                    👥
+                  </div>
+                  <div>
+                    <h4 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.2rem; font-family: 'Playfair Display', serif;">Especialidad para Compartir</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">25,00 € por persona • Mínimo 2 personas. Incluye servicio completo con guarniciones artesanas.</p>
+                  </div>
+                </div>
+                <div style="background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%); color: #061108; padding: 0.5rem 1.1rem; border-radius: var(--radius-full); font-weight: 800; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35); white-space: nowrap;">
+                  25,00 € <span style="font-size: 0.78rem; font-weight: 600;">/ persona</span>
+                </div>
+              </div>
+
+              <div class="menu-dishes-grid">
+
+                <!-- Plato 1: Tabla de Carnes Garden -->
+                <div class="menu-dish-item tabla-dish-card">
+                  <div class="menu-dish-header-row" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; width: 100%;">
+                    <div class="menu-dish-info">
+                      <div class="menu-dish-name">
+                        <span>Tabla de Carnes Garden</span>
+                        <span class="menu-badge badge-star">⭐ Especialidad</span>
+                        <span class="menu-badge badge-gold">Para Compartir</span>
+                      </div>
+                      <p class="menu-dish-desc">Exquisita selección de cortes nobles, secreto ibérico y carnes selectas preparadas en su punto jugoso, acompañadas de patatas panaderas artesanas y pimientos del padrón.</p>
+                    </div>
+                    <div class="menu-dish-price-col">
+                      <span class="menu-dish-price">25,00 €</span>
+                      <span style="font-size: 0.75rem; color: var(--text-dim); display: block; text-align: right; margin-top: 0.2rem;">por persona</span>
+                    </div>
+                  </div>
+
+                  <!-- Vídeo 9:16 en bucle gastronómico: Tabla de Carnes -->
+                  <div class="tabla-video-container">
+                    <video 
+                      class="tabla-video-player" 
+                      id="videoTablaCarnes"
+                      autoplay 
+                      loop 
+                      muted 
+                      playsinline 
+                      webkit-playsinline 
+                      preload="auto"
+                      tabindex="-1"
+                      disablepictureinpicture 
+                      disableremoteplayback>
+                      <source src="videos/tabla-carne.mov" type="video/quicktime">
+                      <source src="videos/tabla-carne.mov" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+
+                <!-- Plato 2: Tabla de Pescados Garden -->
+                <div class="menu-dish-item tabla-dish-card">
+                  <div class="menu-dish-header-row" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; width: 100%;">
+                    <div class="menu-dish-info">
+                      <div class="menu-dish-name">
+                        <span>Tabla de Pescados Garden</span>
+                        <span class="menu-badge badge-fresh">Del Mar</span>
+                        <span class="menu-badge badge-gold">Para Compartir</span>
+                      </div>
+                      <p class="menu-dish-desc">Gran surtido marinero con piezas selectas de pescado fresco de lonja, lomos al punto, mariscos y cefalópodos, preparados con sal en escamas, verduras tiernas salteadas y toques cítricos.</p>
+                    </div>
+                    <div class="menu-dish-price-col">
+                      <span class="menu-dish-price">25,00 €</span>
+                      <span style="font-size: 0.75rem; color: var(--text-dim); display: block; text-align: right; margin-top: 0.2rem;">por persona</span>
+                    </div>
+                  </div>
+
+                  <!-- Vídeo 9:16 en bucle gastronómico: Tabla de Pescados -->
+                  <div class="tabla-video-container">
+                    <video 
+                      class="tabla-video-player" 
+                      id="videoTablaPescados"
+                      autoplay 
+                      loop 
+                      muted 
+                      playsinline 
+                      webkit-playsinline 
+                      preload="auto"
+                      tabindex="-1"
+                      disablepictureinpicture 
+                      disableremoteplayback>
+                      <source src="videos/tabla-pescado.mov" type="video/quicktime">
+                      <source src="videos/tabla-pescado.mov" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             ACORDEÓN 5: POSTRES ARTESANALES
              ========================================== -->
         <div class="menu-acc-item" id="acc-postres">
           <div class="menu-acc-header" onclick="toggleMenuAccordion('acc-postres')" role="button" aria-expanded="false">
@@ -6402,12 +6584,39 @@
             video.play().catch(() => {});
           }
         }
+        if (accId === 'acc-tablas') {
+          const vCarnes = document.getElementById('videoTablaCarnes');
+          const vPescados = document.getElementById('videoTablaPescados');
+          if (vCarnes && vCarnes.paused) vCarnes.play().catch(() => {});
+          if (vPescados && vPescados.paused) vPescados.play().catch(() => {});
+        }
       } else {
         targetItem.classList.remove('active');
         targetItem.querySelector('.menu-acc-header')?.setAttribute('aria-expanded', 'false');
       }
 
       updateStickyTabHighlights();
+    }
+
+    function toggleVideoSound(videoId, btnId) {
+      const video = document.getElementById(videoId);
+      const btn = document.getElementById(btnId);
+      if (!video) return;
+      video.muted = !video.muted;
+      if (video.muted) {
+        if (btn) {
+          btn.innerHTML = '🔇';
+          btn.title = 'Activar sonido';
+        }
+      } else {
+        if (btn) {
+          btn.innerHTML = '🔊';
+          btn.title = 'Silenciar';
+        }
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      }
     }
 
     function toggleSubAccordion(subId, forceOpen = null) {
